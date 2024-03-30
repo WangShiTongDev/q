@@ -1,0 +1,18 @@
+﻿@model CreateProjectViewModel
+
+<h1>Create project</h1>
+<form asp-action="CreateProject">
+    <input name="name" type="text" value="" class="form-control" placeholder="name"/>
+    <input name="Description" type="text" value="" class="form-control" placeholder="Description" />
+    <div >
+        <label asp-for="SelectedTechnologyIds">Выберите технологии</label>
+        <select 
+            asp-for="SelectedTechnologyIds" 
+            asp-items="@Model.AvailableTechnologies"
+            multiple 
+            class="form-control">
+
+        </select>
+    </div>
+    <input type="submit" value="create" class="btn btn-success"/>
+</form>

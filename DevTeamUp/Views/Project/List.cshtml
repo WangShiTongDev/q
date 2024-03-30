@@ -1,0 +1,57 @@
+﻿@model ProjectsListViewModel
+
+<div>
+    панель фильтрации
+    <form asp-action="List" method="get">
+        <div class="input-group">
+            <input asp-for="Filter.Keyword"  type="text" value="" placeholder="search"/>
+        </div>
+        <div class="input-group">
+            @*<label asp-for="SelectedTechnologyIds">Выберите технологии</label>*@
+            <select 
+                asp-for="Filter.TechnologyIds" 
+                asp-items="@ViewBag.AvailableTechnologies as IList<SelectListItem>"
+                multiple 
+                class="form-control">
+            </select>
+        </div>
+        <div class="input-group">
+            <input class="btn btn-success" type="submit" value="search" />
+        </div>
+    </form>
+</div>
+<div>
+    
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Owner</th>
+                <th scope="col">Stack</th
+                <th scope="col" class="text-end">Handle</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var project in Model.Projects)
+            {
+            <tr>
+                <th scope="row">@project.Id </th>
+                <td>@project.Name</td>
+                <td>@project.OwnerId</td>
+                <td>
+                    @foreach (var technology in project.Stack)
+                    {
+                    <span class="btn btn-success">@technology.Name</span>        
+                    }
+                </td>
+                <td class="text-end">
+                    <a  class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+            }
+            
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,14 @@
+C:\Users\student\source\repos\DevTeamUp\DevTeamUp.DAL\bin\Debug\net7.0\DevTeamUp.DAL.deps.json
+C:\Users\student\source\repos\DevTeamUp\DevTeamUp.DAL\bin\Debug\net7.0\DevTeamUp.DAL.runtimeconfig.json
+C:\Users\student\source\repos\DevTeamUp\DevTeamUp.DAL\bin\Debug\net7.0\DevTeamUp.DAL.dll
+C:\Users\student\source\repos\DevTeamUp\DevTeamUp.DAL\bin\Debug\net7.0\DevTeamUp.DAL.pdb
+C:\Users\student\source\repos\DevTeamUp\DevTeamUp.DAL\obj\Debug\net7.0\DevTeamUp.DAL.csproj.AssemblyReference.cache
+C:\Users\student\source\repos\DevTeamUp\DevTeamUp.DAL\obj\Debug\net7.0\DevTeamUp.DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\student\source\repos\DevTeamUp\DevTeamUp.DAL\obj\Debug\net7.0\DevTeamUp.DAL.AssemblyInfoInputs.cache
+C:\Users\student\source\repos\DevTeamUp\DevTeamUp.DAL\obj\Debug\net7.0\DevTeamUp.DAL.AssemblyInfo.cs
+C:\Users\student\source\repos\DevTeamUp\DevTeamUp.DAL\obj\Debug\net7.0\DevTeamUp.DAL.csproj.CoreCompileInputs.cache
+C:\Users\student\source\repos\DevTeamUp\DevTeamUp.DAL\obj\Debug\net7.0\DevTeamUp.DAL.dll
+C:\Users\student\source\repos\DevTeamUp\DevTeamUp.DAL\obj\Debug\net7.0\refint\DevTeamUp.DAL.dll
+C:\Users\student\source\repos\DevTeamUp\DevTeamUp.DAL\obj\Debug\net7.0\DevTeamUp.DAL.pdb
+C:\Users\student\source\repos\DevTeamUp\DevTeamUp.DAL\obj\Debug\net7.0\DevTeamUp.DAL.genruntimeconfig.cache
+C:\Users\student\source\repos\DevTeamUp\DevTeamUp.DAL\obj\Debug\net7.0\ref\DevTeamUp.DAL.dll

@@ -1,0 +1,15 @@
+C:\Users\student\source\repos\DevTeamUp\DevTeamUp.BLL\bin\Debug\net7.0\DevTeamUp.BLL.deps.json
+C:\Users\student\source\repos\DevTeamUp\DevTeamUp.BLL\bin\Debug\net7.0\DevTeamUp.BLL.dll
+C:\Users\student\source\repos\DevTeamUp\DevTeamUp.BLL\bin\Debug\net7.0\DevTeamUp.BLL.pdb
+C:\Users\student\source\repos\DevTeamUp\DevTeamUp.BLL\bin\Debug\net7.0\DevTeamUp.DAL.dll
+C:\Users\student\source\repos\DevTeamUp\DevTeamUp.BLL\bin\Debug\net7.0\DevTeamUp.DAL.pdb
+C:\Users\student\source\repos\DevTeamUp\DevTeamUp.BLL\obj\Debug\net7.0\DevTeamUp.BLL.csproj.AssemblyReference.cache
+C:\Users\student\source\repos\DevTeamUp\DevTeamUp.BLL\obj\Debug\net7.0\DevTeamUp.BLL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\student\source\repos\DevTeamUp\DevTeamUp.BLL\obj\Debug\net7.0\DevTeamUp.BLL.AssemblyInfoInputs.cache
+C:\Users\student\source\repos\DevTeamUp\DevTeamUp.BLL\obj\Debug\net7.0\DevTeamUp.BLL.AssemblyInfo.cs
+C:\Users\student\source\repos\DevTeamUp\DevTeamUp.BLL\obj\Debug\net7.0\DevTeamUp.BLL.csproj.CoreCompileInputs.cache
+C:\Users\student\source\repos\DevTeamUp\DevTeamUp.BLL\obj\Debug\net7.0\DevTeamUp.BLL.csproj.CopyComplete
+C:\Users\student\source\repos\DevTeamUp\DevTeamUp.BLL\obj\Debug\net7.0\DevTeamUp.BLL.dll
+C:\Users\student\source\repos\DevTeamUp\DevTeamUp.BLL\obj\Debug\net7.0\refint\DevTeamUp.BLL.dll
+C:\Users\student\source\repos\DevTeamUp\DevTeamUp.BLL\obj\Debug\net7.0\DevTeamUp.BLL.pdb
+C:\Users\student\source\repos\DevTeamUp\DevTeamUp.BLL\obj\Debug\net7.0\ref\DevTeamUp.BLL.dll

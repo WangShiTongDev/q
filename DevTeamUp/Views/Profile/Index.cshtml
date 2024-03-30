@@ -1,0 +1,100 @@
+﻿@using DevTeamUp.Models.Profile;
+@model ProfileViewModel
+
+<h1>My profile index page</h1>
+
+<p>User info</p>
+<div class="userInfo">
+    <form id="profileInfoForm" method="post" asp-action="Index">
+        <div class="input-group mb-2">
+            @*<input name="email" class="form-control" type="email" value="" placeholder=""/>*@
+            <input name="userName" class="form-control" type="text" value="@Model.Username" placeholder="user name" />
+        </div>
+        <div class="skillsGroup input-group mb-2 row">
+            
+            <select id="availableSkills" class="mb-5 skill-select" multiple>
+                @foreach (var skill in Model.AvailableSkills)
+                {
+                    <option class="skill-item btn btn-info" data-id="@skill.Value" value="@skill.Value" selected>
+                        <span>@skill.Text</span>
+                    </option>
+                }
+            </select>
+            <hr />
+            <select asp-for="@Model.SelectSkills" id="userSkills" multiple" class="skill-select">
+                
+                @if (Model.Skills != null)
+                {
+                    @foreach (var skill in Model.Skills)
+                    {
+                        <option class="skill-item btn btn-info" data-id="@skill.Value" value="@skill.Value" selected>
+                            <span>@skill.Text</span>
+                        </option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="input-group">
+            <input class="btn btn-primary" type="submit" value="edit" />
+        </div>
+    </form>
+</div>
+<hr />
+
+<p>Projects:</p>
+<div class="projects">
+</div>
+<a asp-action="CreateProject" asp-controller="Project">Create project</a>
+<hr />
+
+<p>reviews:</p>
+<div class="reviews">
+</div>
+<hr />
+
+@section Scripts {
+    <script>
+        const availableSkills = document.querySelector('#availableSkills');
+        const userSkills = document.querySelector('#userSkills');
+
+
+        const profileInfoFormSubmitHandle = (e) =>{
+            e.preventDefault();
+            let formData = new FormData(e.currentTarget);
+            for (const pair of formData.entries()) {
+                console.log(pair[0] + ': ' + pair[1]);
+            }
+            let res = userSkills.querySelectorAll('.skill-item');
+            res.forEach( i => {
+                formData.append('Skills', i.dataset.id);
+            });
+            
+
+        }
+
+
+        const toggleSkillsSelection = (element) => {
+            if(element.parentNode ===  availableSkills){
+                availableSkills.removeChild(element);
+                userSkills.appendChild(element);
+
+            }else if(element.parentNode === userSkills){
+                userSkills.removeChild(element);
+                availableSkills.appendChild(element);
+            }
+        }
+
+        let items = document.querySelectorAll('.skill-item');
+        
+        items.forEach(i => {
+            i.addEventListener('click', e => {
+                toggleSkillsSelection(e.currentTarget)
+            })
+        })
+        
+        
+
+        //document.querySelector('#profileInfoForm').addEventListener('submit', profileInfoFormSubmitHandle);
+    </script>
+
+}
