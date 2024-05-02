@@ -1,38 +1,56 @@
 ﻿@using DevTeamUp.BLL.DTOs;
-<h1>
-    Укажите свои данные
-</h1>
 
 
-<form asp-action="ProfileInit" id="profileInitForm" method="post">
-    <input type="text" value="" placeholder="first name" name="firstName"/>
-    <input type="text" value="" placeholder="last name" name="lastName"/>
+<div class="container">
+    <div class="row justify-content-center">
 
-    <div class="form-gorup">
-        <label>about yourself</label>
-        <textarea action="about">
+        <div class="card col-lg-8">
+            <div class="card-title">
+                <h3>Create new Film</h3>
+            </div>
+            <div class="card-body">
 
-        </textarea>
+                <form asp-action="ProfileInit" id="profileInitForm" method="post">
+                    <div class="mb-3">
+                        <input class="form-control" type="text" value="" placeholder="first name" name="firstName" required />
+                    </div>
+                    <div class="mb-3">
+                        <input class="form-control" type="text" value="" placeholder="last name" name="lastName" required />
+                    </div>
+                    <div class="mb-3">
+                    </div>
+
+                    <div class="form-gorup mb-3">
+                        <label>about yourself</label>
+                        <textarea class="form-control" >
+
+                        </textarea>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <select class="form-control selectpicker source" data-live-search="true">
+                            <option value="">Выберите категорию</option>
+                            @foreach (var item in ViewBag.availableSkills as IList<SkillDTO>)
+                            {
+                                <option value="@item.Id">@item.Name</option>
+                            }
+
+                        </select>
+                        <hr />
+                        <div class="selected">
+                        </div>
+                        <div id="hideInputs">
+                        </div>
+                    </div>
+
+                    <input type="submit" value="next" />
+                </form>
+                
+            </div>
+        </div>
     </div>
+</div>
 
-    <div class="form-group">
-        <div class="source">
-            @foreach (var item in ViewBag.availableSkills as IList<SkillDTO>)
-            {
-                <div data-id="@item.Id" class="listItem">@item.Name</div>
-            }
-        </div>
-        <hr />
-        <div class="selected">
-
-        </div>
-        <div class="hiddenInputs">
-
-        </div>
-    </div>
-
-    <input type="submit" value="next" />
-</form>
 
 
 @section Scripts {
@@ -40,64 +58,67 @@
 
     <script>
 
-        class SwitchListItems{
+        //class SwitchListItems {
 
-            #sourceContainer;
-            #selectedContainer;
-            #itemClassName = ".listItem"
+        //    #sourceContainer;
+        //    #selectedContainer;
+        //    #itemClassName = ".listItem"
 
-            constructor(sourceContainer, selectedContainer){
-                this.#sourceContainer = sourceContainer;
-                this.#selectedContainer = selectedContainer;
+        //    constructor(sourceContainer, selectedContainer){
+        //        this.#sourceContainer = sourceContainer;
+        //        this.#selectedContainer = selectedContainer;
                 
-                console.log(this.#selectedContainer);
-                console.log(this.#sourceContainer);
+        //        console.log(this.#selectedContainer);
+        //        console.log(this.#sourceContainer);
                 
-                this.#init();
-            }
+        //        this.#init();
+        //    }
 
-            #init(){
-                document.querySelectorAll(this.#itemClassName).forEach( i => {
+        //    #init(){
+        //        document.querySelectorAll(this.#itemClassName).forEach( i => {
                     
-                    i.addEventListener('click', e => { this.#toggleSelection(i); })
-                })
-            }
+        //            i.addEventListener('click', e => { this.#toggleSelection(i); })
+        //        })
+        //    }
 
-            #toggleSelection(element){
-                console.log(element.parentNode);
-                if (element.parentNode === this.#sourceContainer) {
-                    this.#sourceContainer.removeChild(element);
-                    this.#selectedContainer.appendChild(element);
+        //    #toggleSelection(element){
+        //        console.log(element.parentNode);
+        //        if (element.parentNode === this.#sourceContainer) {
+        //            this.#sourceContainer.removeChild(element);
+        //            this.#selectedContainer.appendChild(element);
 
-                } else if (element.parentNode === this.#selectedContainer) {
-                    this.#selectedContainer.removeChild(element);
-                    this.#sourceContainer.appendChild(element);
-                }
-            }
+        //        } else if (element.parentNode === this.#selectedContainer) {
+        //            this.#selectedContainer.removeChild(element);
+        //            this.#sourceContainer.appendChild(element);
+        //        }
+        //    }
 
-            createHiddenInputs(name){
-                return Array.from (this.#selectedContainer.querySelectorAll(this.#itemClassName))
-                .map( item => {
-                    return $(` <input type="hidden" name="${name}" value="${item.dataset.id}">`)[0];
-                });
-            }
-        }
+        //    createHiddenInputs(name){
+        //        return Array.from (this.#selectedContainer.querySelectorAll(this.#itemClassName))
+        //        .map( item => {
+        //            return $(` <input type="hidden" name="${name}" value="${item.dataset.id}">`)[0];
+        //        });
+        //    }
+        //}
         
         let source = document.querySelector('.source');
         let selected = document.querySelector('.selected')
-        let test = new SwitchListItems(source, selected);
+        let hideInputs = document.querySelector('#hideInputs')
 
         let form = document.querySelector('#profileInitForm');
 
-        form.addEventListener('submit', e =>{
+
+        let skillsSelect = new MySelect(hideInputs, source, selected, 'TechnologiesIds');
+
+        //form.addEventListener('submit', e =>{
             
-            let hiddenInputsContainer = document.querySelector('.hiddenInputs');
-            hiddenInputsContainer.innerHTML = '';
+        //    let hiddenInputsContainer = document.querySelector('.hiddenInputs');
+        //    hiddenInputsContainer.innerHTML = '';
 
-            let hiddeInputs = test.createHiddenInputs('technologies');
-            hiddeInputs.forEach(i => $(hiddenInputsContainer).append(i));
+        //    let hiddeInputs = test.createHiddenInputs('technologies');
+        //    hiddeInputs.forEach(i => $(hiddenInputsContainer).append(i));
 
-        })
+        //})
 
     </script>
 }

@@ -3,6 +3,7 @@ using DevTeamUp.BLL.AutoMapper;
 using DevTeamUp.BLL.Services;
 using DevTeamUp.DAL.EF;
 using DevTeamUp.DAL.EF.Entities;
+using DevTeamUp.Filters;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -46,6 +47,7 @@ namespace DevTeamUp
             {
                 var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
                 config.Filters.Add(new AuthorizeFilter(policy));
+                config.Filters.Add<ProfileCompletionFilter>();
             }).AddRazorRuntimeCompilation();
 
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

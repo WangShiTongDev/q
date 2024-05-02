@@ -1,4 +1,6 @@
-﻿using DevTeamUp.DAL.EF.Entities;
+﻿using DevTeamUp.BLL.Services;
+using DevTeamUp.DAL.EF.Entities;
+using DevTeamUp.Filters;
 using DevTeamUp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -7,17 +9,19 @@ using Microsoft.AspNetCore.Mvc;
 namespace DevTeamUp.Controllers
 {
     [AllowAnonymous]
+    //[ServiceFilter(typeof(ProfileCompletionFilter))]
     public class AccountController : Controller
     {
 
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
-        
+        private readonly UserService userService;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, UserService userService)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.userService = userService;
         }
 
 

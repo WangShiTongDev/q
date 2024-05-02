@@ -1,4 +1,4 @@
-﻿@using DevTeamUp.Models.Profile;
+﻿@*@using DevTeamUp.Models.Profile;
 @model ProfileViewModel
 
 <h1>My profile index page</h1>
@@ -7,7 +7,7 @@
 <div class="userInfo">
     <form id="profileInfoForm" method="post" asp-action="Index">
         <div class="input-group mb-2">
-            @*<input name="email" class="form-control" type="email" value="" placeholder=""/>*@
+            
             <input name="userName" class="form-control" type="text" value="@Model.Username" placeholder="user name" />
         </div>
         <div class="skillsGroup input-group mb-2 row">
@@ -94,7 +94,136 @@
         
         
 
-        //document.querySelector('#profileInfoForm').addEventListener('submit', profileInfoFormSubmitHandle);
+       
     </script>
 
-}
+}*@
+
+
+
+<div class="container p-5 " style="background-color: #F0F3FF" >
+    <div class="row mb-3" style="background-color: #211951; color: #F0F3FF; padding: 25px; border-radius: 2rem;">
+        <div class="col-4">
+            <div class="img-box avatar" >
+                <img src="https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png" alt="" />
+            </div>
+        </div>
+        <div class="col-8 ">
+            <div>
+                <div>Username: adfsaadsf</div>
+                <div>rating: ****</div>
+                <div>
+                    GitHub: sdafljdfasklasdf
+                </div>
+                <div>
+                    Consectetur adipiscing elit fusce vel.
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mb-3">
+        <div class="col">
+            <hr />
+            <div>
+                <p>about</p>
+                <div class="about">
+                    Sapien elit in malesuada semper mi, id sollicitudin urna fermentum.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <hr />
+            <div>
+                <p>skills</p>
+                <ul class="skills">
+                    @for (int i = 0; i < 5; i++)
+                    {
+                        <li class="skill-item">Shill name</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <hr />
+
+            <div>
+                <p>sdf</p>
+                <div class="profile-projects">
+                    @for (int i = 0; i < 5; i++)
+                    {
+                        
+                        @*<div class="project card">
+                            <div class="catd-body">
+                                
+                            </div>
+                        </div>*@
+
+                        <div class="card mb-4 box-shadow position-relative ">
+                            <img class="card-img-top" src="https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22348%22%20height%3D%22225%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20348%20225%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_18ebc89e27d%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A17pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_18ebc89e27d%22%3E%3Crect%20width%3D%22348%22%20height%3D%22225%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22116.71283340454102%22%20y%3D%22120.13639469146729%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">
+                            <div class="card-body">
+                                <h5 class="card-title">Title</h5>
+                              
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <a asp-action="About" asp-route-id="1" class="btn btn-sm btn-outline-secondary">View</a>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">Delete</button>
+                                    </div>
+                                    <small class="text-muted">9 mins</small>
+                                </div>
+                            </div>
+                            @*<div class="card-description">
+                                <p>Опис карточки...</p>
+
+                            </div>*@
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <hr />
+
+            <div>
+                <hr />
+                <p>reviws</p>
+                <div class="container">
+                    @for (int i = 0; i < 5; i++)
+                    {
+                    <div class="row mb-4 pb-2 border-bottom">
+                        <div class="col-9">
+                            <div class="review-header d-flex pb-1">
+                                <div class="profile-image pe-3 ">
+                                    <img height="50" src="https://e7.pngegg.com/pngimages/312/283/png-clipart-man-s-face-avatar-computer-icons-user-profile-business-user-avatar-blue-face-thumbnail.png" alt="" />
+                                </div>
+                                <div>
+                                    <span>username</span>
+                                </div>
+                            </div>
+                            <div class="review-details">
+                                <div class="review-rating">
+                                    * * *
+                                </div>
+                                <div class="review-description ">
+                                    Sapien elit in malesuada semper mi, id sollicitudin urna fermentum.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3 border-start ">
+                            dsf
+                        </div>
+                    </div>
+                        
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

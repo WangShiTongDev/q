@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "/0zrpEKLlWHgqYrSXwfvZsrIvS658BedDBapnD/5oU8=",
+  "Hash": "lqfzaJLs8NVKlWJaZ9wWq4kO82KztS71e3Rx5LSNlE4=",
   "Source": "DevTeamUp",
   "BasePath": "_content/DevTeamUp",
   "Mode": "Default",
@@ -49,6 +49,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\student\\source\\repos\\DevTeamUp\\DevTeamUp\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\DevTeamUp.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\student\\source\\repos\\DevTeamUp\\DevTeamUp\\wwwroot\\css\\anonim.css",
+      "SourceId": "DevTeamUp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\student\\source\\repos\\DevTeamUp\\DevTeamUp\\wwwroot\\",
+      "BasePath": "_content/DevTeamUp",
+      "RelativePath": "css/anonim.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\anonim.css"
     },
     {
       "Identity": "C:\\Users\\student\\source\\repos\\DevTeamUp\\DevTeamUp\\wwwroot\\css\\site.css",
@@ -100,6 +117,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\site.js"
+    },
+    {
+      "Identity": "C:\\Users\\student\\source\\repos\\DevTeamUp\\DevTeamUp\\wwwroot\\js\\test.js",
+      "SourceId": "DevTeamUp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\student\\source\\repos\\DevTeamUp\\DevTeamUp\\wwwroot\\",
+      "BasePath": "_content/DevTeamUp",
+      "RelativePath": "js/test.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\test.js"
     },
     {
       "Identity": "C:\\Users\\student\\source\\repos\\DevTeamUp\\DevTeamUp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",

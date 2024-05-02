@@ -1,4 +1,8 @@
-﻿@model LoginViewModel;
+﻿
+@{
+    Layout = "_Anonim";
+}
+@model LoginViewModel;
 
 
 @*<h1>Login page</h1>
@@ -55,11 +59,8 @@
     </div>
 </section>*@
 
-<h1>Login page</h1>
-@if(this.User.Identity.IsAuthenticated)
-{
-    <h1>Ну снвоа привет</h1>
-}
+
+
 <form asp-action="Login" method="post">
     <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Email address</label>

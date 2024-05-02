@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -51,6 +52,31 @@ namespace DevTeamUp.BLL.Services
             _dataContext.SaveChanges();
 
             return _mapper.Map<UserDto>(user);
+        }
+
+        public bool IsProfileCompleted(int userId)
+        {
+            var user = _dataContext.Users.FirstOrDefault(u => u.Id == userId);
+
+            if (user == null)
+                throw new ArgumentException();
+
+            return user.IsProfileCompleted;
+        }
+
+        public void ProfileInit(ProfileDTO profile)
+        {
+            var currentUser = _dataContext.Users.First(u => profile.UserId == u.Id);
+
+            currentUser.FirstName = profile.FirstName;
+            currentUser.LastName = profile.LastName;
+            currentUser.About = profile.About;
+            currentUser.Skill = _dataContext.Skills
+                .Where(s => profile.TechnologiesIds.Contains(s.Id))
+                .ToList();
+
+            currentUser.IsProfileCompleted = true;
+            _dataContext.SaveChanges();
         }
     }
 }

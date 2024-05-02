@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\DevTeamUp.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\student\\source\\repos\\DevTeamUp\\DevTeamUp\\wwwroot\\css\\anonim.css",
+      "PackagePath": "staticwebassets\\css\\anonim.css"
+    },
+    {
       "Id": "C:\\Users\\student\\source\\repos\\DevTeamUp\\DevTeamUp\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
@@ -15,6 +19,10 @@
     {
       "Id": "C:\\Users\\student\\source\\repos\\DevTeamUp\\DevTeamUp\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "C:\\Users\\student\\source\\repos\\DevTeamUp\\DevTeamUp\\wwwroot\\js\\test.js",
+      "PackagePath": "staticwebassets\\js\\test.js"
     },
     {
       "Id": "C:\\Users\\student\\source\\repos\\DevTeamUp\\DevTeamUp\\wwwroot\\lib\\bootstrap\\LICENSE",

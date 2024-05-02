@@ -40,6 +40,7 @@
 
   <ItemGroup>
     <Folder Include="Extansions\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
 
 </Project>

@@ -2,6 +2,7 @@
 using DevTeamUp.BLL.DTOs;
 using DevTeamUp.BLL.Services;
 using DevTeamUp.DAL.EF.Entities;
+using DevTeamUp.Models;
 using DevTeamUp.Models.Profile;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -78,27 +79,27 @@ namespace DevTeamUp.Controllers
         }
 
         [HttpPost]
-        public IActionResult ProfileInit(string firstName, string lastName, string about, IList<int> technologies)
+        public IActionResult ProfileInit(ProfileInitVM model)
         {
-            _ = firstName;
+            _ = model;
+            var dto = new ProfileDTO
+            {
+                UserId = currentUser.Id,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                About = model.About,
+                TechnologiesIds = model.TechnologiesIds,
+            };
+            userService.ProfileInit(dto);
+            var completedUser = userService.GetUser(dto.UserId);
 
-            return RedirectToAction("ProfileInitSkills");
-        }
+            _ = completedUser;
 
-
-        public IActionResult ProfileInitSkills()
-        {
-            // return skills
             ViewBag.availableSkills = skillService.GetSkills();
             return View();
+            
         }
 
-        [HttpPost]
-        public IActionResult ProfileInitSkills(string s)
-        {
-            // return skills
-            
-            return View();
-        }
+
     }
 }

@@ -11,6 +11,12 @@ namespace DevTeamUp.DAL.EF.Entities
     public class User : IdentityUser<int>, IEntityBase
     {
         
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+
+        public string? About { get; set; }
+        public bool IsProfileCompleted { get; set; }
+
         public IList<Skill> Skill { get; set; }
         public List<Review> UserComments { get; set; } 
 
