@@ -10,7 +10,7 @@ namespace DevTeamUp.DAL.EF.Entities
     {
         public string Name { get; set; }
         
-        public IList<User> Users { get; set; }
-        public IList<Project> Projects { get; set; }
+        public virtual IList<User> Users { get; set; }
+        public virtual IList<Project> Projects { get; set; }
     }
 }

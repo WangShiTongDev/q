@@ -408,3 +408,5 @@ C:\Users\student\source\repos\DevTeamUp\DevTeamUp\bin\Debug\net7.0\zh-Hans\Micro
 C:\Users\student\source\repos\DevTeamUp\DevTeamUp\bin\Debug\net7.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
 C:\Users\student\source\repos\DevTeamUp\DevTeamUp\obj\Debug\net7.0\DevTeamUp.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\student\source\repos\DevTeamUp\DevTeamUp\bin\Debug\net7.0\AutoMapper.dll
+C:\Users\student\source\repos\DevTeamUp\DevTeamUp\bin\Debug\net7.0\Castle.Core.dll
+C:\Users\student\source\repos\DevTeamUp\DevTeamUp\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Proxies.dll

@@ -11,8 +11,8 @@ namespace DevTeamUp.DAL.EF.Entities
         public string Content { get; set; }
         public DateTime CreatedAt { get; set; }
         public int SenderId { get; set; }
-        public User Sender { get; set; }
+        public virtual User Sender { get; set; }
         public int ChatId { get; set; }
-        public ProjectChat Chat { get; set; }
+        public virtual ProjectChat Chat { get; set; }
     }
 }

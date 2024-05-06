@@ -36,8 +36,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/student/source/repos/DevTeamUp/DevTeamUp/Views/Profile/MyProfile.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxNeVByb2ZpbGUuY3NodG1s
+[C:/Users/student/source/repos/DevTeamUp/DevTeamUp/Views/Profile/List.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxMaXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/student/source/repos/DevTeamUp/DevTeamUp/Views/Profile/UserProfile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxVc2VyUHJvZmlsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/student/source/repos/DevTeamUp/DevTeamUp/Views/Project/CreateProject.cshtml]

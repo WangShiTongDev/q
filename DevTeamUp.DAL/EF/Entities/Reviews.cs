@@ -11,18 +11,19 @@ namespace DevTeamUp.DAL.EF.Entities
     public class Review : EntityBase
     {
         public int Evaluation { get; set; }
-        public string Description { get; set; }
+        public required string Description { get; set; }
         public DateTime CreatedAt { get; set; }
 
         public int AuthorId { get; set; }
         [InverseProperty(nameof(User.UserComments))]
-        public User Author { get; set; }
-
+        public virtual User Author { get; set; }
 
         public int RecipientId { get; set; }
         [InverseProperty(nameof(User.CommentsForUser))]
-        public User Recipient { get; set; }
+        public virtual User Recipient { get; set; }
 
+        public int ProjectId { get; set; }
+        public virtual Project Project { get; set; }
 
     }
 }

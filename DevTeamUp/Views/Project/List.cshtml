@@ -1,57 +1,66 @@
-﻿@model ProjectsListViewModel
+﻿<div class="container bg-light p-5">
+    <div class="row mb-3">
+        <div class="col">
+            <form>
+                <div class="input-group">
 
-<div>
-    панель фильтрации
-    <form asp-action="List" method="get">
-        <div class="input-group">
-            <input asp-for="Filter.Keyword"  type="text" value="" placeholder="search"/>
+                    <input class="form-control" type="text" value="" />
+                    <input class="btn btn-success" type="submit" value="find" />
+                </div>
+            </form>
         </div>
-        <div class="input-group">
-            @*<label asp-for="SelectedTechnologyIds">Выберите технологии</label>*@
-            <select 
-                asp-for="Filter.TechnologyIds" 
-                asp-items="@ViewBag.AvailableTechnologies as IList<SelectListItem>"
-                multiple 
-                class="form-control">
-            </select>
+    </div>
+    <div class="row">
+        <div class="col-lg-4 col-md-12">
+            <div class="project-list-item card mb-4 box-shadow position-relative ">
+
+                <div class="card-body">
+                    <h5 class="card-title">Title</h5>
+                    <div>
+                        <ul class="project-skills">
+                            @for (int j = 0; j < 5; j++)
+                            {
+                                <li class="project-skill-item">Skill name</li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="card-subtitle">
+                        Mi, id sollicitudin urna fermentum ut fusce varius nisl ac ipsum gravida vel pretium tellus.
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <small class="status-project">find team</small>
+                        <small class="members-counter">1/4</small>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="input-group">
-            <input class="btn btn-success" type="submit" value="search" />
-        </div>
-    </form>
-</div>
-<div>
-    
-    
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Owner</th>
-                <th scope="col">Stack</th
-                <th scope="col" class="text-end">Handle</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var project in Model.Projects)
-            {
-            <tr>
-                <th scope="row">@project.Id </th>
-                <td>@project.Name</td>
-                <td>@project.OwnerId</td>
-                <td>
-                    @foreach (var technology in project.Stack)
-                    {
-                    <span class="btn btn-success">@technology.Name</span>        
-                    }
-                </td>
-                <td class="text-end">
-                    <a  class="btn btn-danger">Delete</a>
-                </td>
-            </tr>
-            }
-            
-        </tbody>
-    </table>
+        @for (int i = 0; i < 15; i++)
+        {
+            <div class="col-lg-4 col-md-12">
+                <div class="project-list-item card mb-4 box-shadow position-relative ">
+
+                    <div class="card-body">
+                        <h5 class="card-title">Title</h5>
+                        <div>
+                            <ul class="project-skills">
+                                @for (int j = 0; j < 5; j++)
+                                {
+                                    <li class="project-skill-item">Skill name</li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="card-subtitle">
+                            Sapien elit in malesuada semper mi, id sollicitudin urna fermentum.
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+
+                            <small class="status-project">find team</small>
+                            <small class="members-counter">1/4</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 </div>

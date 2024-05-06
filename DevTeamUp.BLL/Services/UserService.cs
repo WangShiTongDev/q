@@ -30,7 +30,7 @@ namespace DevTeamUp.BLL.Services
             // UserDTO в части UserDTO.ProjectsMember -> ProjectDTO.Stack
             // Возможно слишком глубокий маппинг
             var user = _dataContext.Users
-                .Include( u => u.Skill)
+                .Include( u => u.Skills)
                 .Include( u => u.ProjectsMember)
                 .FirstOrDefault(x => x.Id == id);
 
@@ -41,12 +41,38 @@ namespace DevTeamUp.BLL.Services
             return dto;
         }
 
+        public ProfilePageDTO Profile(int userId)
+        {
+            var user = _dataContext.Users
+                .Include(u => u.Skills)
+                .Include(u => u.CommentsForUser )
+                .Include(u => u.ProjectsMember)
+                    .ThenInclude(project => project.Stack)
+
+                .FirstOrDefault(x => x.Id == userId);
+
+            var profile = new ProfilePageDTO();
+            profile.FirstName = user.FirstName;
+            profile.LastName = user.LastName;
+            profile.About = user.About;
+            profile.Skills = user.Skills.Select(s => new SkillDTO
+            {
+                Id = s.Id,
+                Name = s.Name,
+            });
+
+            profile.Projects = _mapper.Map<IEnumerable<ProjectDTO>>(user.ProjectsMember);
+            profile.Reviews = _mapper.Map<IEnumerable<ReviewDTO>>(user.CommentsForUser);
+
+            return profile;
+        }
+
         public UserDto ChangeSkills(int id, IList<int> skillsIds)
         {
-            var user = _dataContext.Users.Include( u => u.Skill).First(x => x.Id == id);
+            var user = _dataContext.Users.Include( u => u.Skills).First(x => x.Id == id);
 
-            user.Skill.Clear();
-            user.Skill = _dataContext.Skills.Where(s => skillsIds.Contains(s.Id)).ToList();
+            user.Skills.Clear();
+            user.Skills = _dataContext.Skills.Where(s => skillsIds.Contains(s.Id)).ToList();
             
  
             _dataContext.SaveChanges();
@@ -71,7 +97,7 @@ namespace DevTeamUp.BLL.Services
             currentUser.FirstName = profile.FirstName;
             currentUser.LastName = profile.LastName;
             currentUser.About = profile.About;
-            currentUser.Skill = _dataContext.Skills
+            currentUser.Skills = _dataContext.Skills
                 .Where(s => profile.TechnologiesIds.Contains(s.Id))
                 .ToList();
 

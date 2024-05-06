@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33801.468
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevTeamUp", "DevTeamUp\DevTeamUp.csproj", "{ABB408BD-7819-40DF-A5C8-0C69D1E7213A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevTeamUp", "DevTeamUp\DevTeamUp.csproj", "{ABB408BD-7819-40DF-A5C8-0C69D1E7213A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevTeamUp.DAL", "DevTeamUp.DAL\DevTeamUp.DAL.csproj", "{E76C8BE4-0876-49A1-ACFB-33F9E1EE311F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevTeamUp.DAL", "DevTeamUp.DAL\DevTeamUp.DAL.csproj", "{E76C8BE4-0876-49A1-ACFB-33F9E1EE311F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevTeamUp.BLL", "DevTeamUp.BLL\DevTeamUp.BLL.csproj", "{45BC7306-88DD-444E-8718-150BDE8752E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevTeamUp.BLL", "DevTeamUp.BLL\DevTeamUp.BLL.csproj", "{45BC7306-88DD-444E-8718-150BDE8752E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

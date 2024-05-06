@@ -9,9 +9,9 @@ namespace DevTeamUp.DAL.EF.Entities
     public class ProjectChat : EntityBase
     {
         public int ProjectId { get; set; }
-        public Project Project { get; set; }
+        public virtual Project Project { get; set; }
 
-        public IList<Message> Messages { get; set; }
+        public virtual IList<Message> Messages { get; set; }
 
     }
 }

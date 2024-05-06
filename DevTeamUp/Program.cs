@@ -75,7 +75,8 @@ namespace DevTeamUp
 
             // DB
             builder.Services.AddDbContext<DataContext>(op =>
-                op.UseSqlServer(builder.Configuration.GetConnectionString("cs1"))
+                op.UseLazyLoadingProxies()
+                .UseSqlServer(builder.Configuration.GetConnectionString("cs1"))
             );
 
             builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);

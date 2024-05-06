@@ -26,10 +26,16 @@ namespace DevTeamUp.Controllers
             this.skillService = skillService;
         }
 
-
-        public IActionResult Index()
+        [HttpGet("[controller]/{id}", Order = int.MaxValue)]
+        public IActionResult Index(int id)
         {
+
             return View();
+        }
+
+        public IActionResult Test()
+        {
+            return Ok("test");
         }
 
         // view projects list
@@ -65,7 +71,7 @@ namespace DevTeamUp.Controllers
         {
             CreateProjectViewModel model = new()
             {
-                AvailableTechnologies = listItemsAvailableTechnologies()
+                Skills = listItemsAvailableTechnologies()
             };
             
             return View(model);
@@ -81,15 +87,11 @@ namespace DevTeamUp.Controllers
                 {
                     Name = model.Name,
                     Description = model.Description,
-                    TechnologyIds = model.SelectedTechnologyIds
+                    SkillsIds = model.SelectedSkillsIds
                 };
 
                 var newProject = projectService.CreateProject(projectDto, userId);
-
-                model.Name = newProject.Name;
-                model.Description = newProject.Description;
-
-
+                _ = newProject;
                 return RedirectToAction("Index");
             }
 

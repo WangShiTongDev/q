@@ -1,6 +1,6 @@
 ﻿@model CreateProjectViewModel
 
-<h1>Create project</h1>
+@*<h1>Create project</h1>
 <form asp-action="CreateProject">
     <input name="name" type="text" value="" class="form-control" placeholder="name"/>
     <input name="Description" type="text" value="" class="form-control" placeholder="Description" />
@@ -15,4 +15,60 @@
         </select>
     </div>
     <input type="submit" value="create" class="btn btn-success"/>
-</form>
+</form>*@
+
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Create project</h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="CreateProject" asp-controller="Project" method="post">
+                        <div class="mb-3">
+                            <input name="name" class="form-control" type="text" value="" placeholder="project name"/>
+                        </div>
+                        <div class="mb-3 p-3 border border-3 rounded-3 ">
+                            <select class="form-control selectpicker source" data-live-search="true">
+                                <option value="">Выберите категорию</option>
+                                @foreach (var item in Model.Skills as IList<SelectListItem>)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+
+                            </select>
+                            <hr />
+                            <div class="selected">
+                            </div>
+                            <div id="hideInputs">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <textarea name="Description" class="form-control " placeholder="description"></textarea>
+                        </div>
+                        <div class="mb-3"></div>
+                        <input class="w-100 btn btn-success" type="submit" value="create" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let source = document.querySelector('.source');
+        let selected = document.querySelector('.selected')
+        let hideInputs = document.querySelector('#hideInputs')
+
+
+
+
+        let skillsSelect = new MySelect(hideInputs, source, selected, 'SelectedSkillsIds');
+
+
+
+    </script>
+}

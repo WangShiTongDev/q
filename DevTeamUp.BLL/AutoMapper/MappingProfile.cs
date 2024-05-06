@@ -14,11 +14,14 @@ namespace DevTeamUp.BLL.AutoMapper
         public MappingProfile()
         {
             CreateMap<CreatedProjectDTO, Project>().ReverseMap();
-            CreateMap<ProjectDTO, Project>().ReverseMap();
+            CreateMap<ProjectDTO, Project>()
+                .ReverseMap();
         
             CreateMap<SkillDTO, Skill>().ReverseMap();
 
             CreateMap<UserDto, User>().ReverseMap();
+            CreateMap<ReviewDTO, Review>().ReverseMap();
+             
         }
 
     }

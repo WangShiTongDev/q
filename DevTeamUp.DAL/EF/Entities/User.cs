@@ -16,19 +16,21 @@ namespace DevTeamUp.DAL.EF.Entities
 
         public string? About { get; set; }
         public bool IsProfileCompleted { get; set; }
+        public string? GitHubLink { get; set; }
+        public string? Bio { get; set; }
 
-        public IList<Skill> Skill { get; set; }
-        public List<Review> UserComments { get; set; } 
+        public virtual IList<Skill> Skills { get; set; }
+        public virtual IList<Review> UserComments { get; set; } 
 
-        public List<Review> CommentsForUser { get; set; } 
+        public virtual IList<Review> CommentsForUser { get; set; } 
 
 
 
         [InverseProperty(nameof(Project.Members))]
-        public IList<Project> ProjectsMember { get; set; }
+        public virtual IList<Project> ProjectsMember { get; set; }
 
         [InverseProperty(nameof(Project.Owner))]
-        public IList<Project> ProjectsOwner { get; set; }
+        public virtual IList<Project> ProjectsOwner { get; set; }
 
     }
 }

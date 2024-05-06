@@ -7,18 +7,28 @@ using System.Threading.Tasks;
 
 namespace DevTeamUp.DAL.EF.Entities
 {
+    public enum ProjectStatus
+    {
+        Closed,
+        Private,
+        Open
+    }
+
     public class Project : EntityBase
     {
         public string Name { get; set; }
+        public required string shortDescription { get; set; }
         public string Description { get; set; }
+        public ProjectStatus Status { get; set; } = ProjectStatus.Open;
+
         public int OwnerId { get; set; }
 
         [InverseProperty(nameof(User.ProjectsOwner))]
-        public User Owner { get; set; }
+        public virtual User Owner { get; set; }
 
         [InverseProperty(nameof(User.ProjectsMember))]
-        public IList<User> Members { get; set; }
+        public virtual IList<User> Members { get; set; }
 
-        public IList<Skill> Stack { get; set; }
+        public virtual IList<Skill> Stack { get; set; }
     }
 }

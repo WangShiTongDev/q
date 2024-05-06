@@ -71,3 +71,23 @@ body {
     border-radius: 0.8rem;
     color: #211951;
 }
+
+/* PROJECT list page*/
+.project-list-item{
+    cursor: pointer;
+}
+
+.project-list-item .project-skills{
+    list-style-type: none;
+    padding: 0px;
+}
+
+.project-skills .project-skill-item {
+    background-color: #15F5BA;
+    display: inline-block;
+    padding: 0.1rem 0.3rem;
+    border-radius: 0.3rem;
+    color: #211951;
+    margin-bottom: 0.3rem;
+    font-size: 0.8rem;
+}

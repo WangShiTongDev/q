@@ -40,37 +40,33 @@ namespace DevTeamUp.Controllers
         public IActionResult Index()
         {
             var userId = int.Parse(userManager.GetUserId(User));
-            var userDto = userService.GetUser(userId);
+            //var userDto = userService.GetUser(userId);
 
-            
-            var profileModel = new ProfileViewModel
-            {
-                Username = userDto.Username,
-            };
-            profileModel.Skills = profileModel.toSelectListItem(userDto.Skill);
-            var availableSkills = skillService.GetSkills().ExceptBy(userDto.Skill.Select( i=> i.Id), u => u.Id );
-            profileModel.AvailableSkills = profileModel.toSelectListItem(availableSkills);
-            
 
-            // сделать на странице возможность изменять скилы
-            return View(profileModel);
+            //var profileModel = new ProfileViewModel
+            //{
+            //    Username = userDto.Username,
+            //};
+            //profileModel.Skills = profileModel.toSelectListItem(userDto.Skill);
+            //var availableSkills = skillService.GetSkills().ExceptBy(userDto.Skill.Select( i=> i.Id), u => u.Id );
+            //profileModel.AvailableSkills = profileModel.toSelectListItem(availableSkills);
+
+
+            var userProfile = userService.Profile(userId);
+
+            _ = userProfile;
+            
+            return View(userProfile);
         }
 
-        [HttpPost]
-        public IActionResult Index(ProfileViewModel model)
-        {
-            _ = model;
-            var userId = int.Parse(userManager.GetUserId(User));
-            userService.ChangeSkills(userId, model.SelectSkills);
+       
 
-            return RedirectToAction("Index");
-        }
-
-        public IActionResult MyProfile()
+        [HttpGet("user/{id}")]
+        public IActionResult UserProfile(int id)
         {
+            // мб делать проверку на собственную страницу 
             return View();
         }
-
 
         public IActionResult ProfileInit()
         {
@@ -100,6 +96,9 @@ namespace DevTeamUp.Controllers
             
         }
 
-
+        public IActionResult List()
+        {
+            return View();
+        }
     }
 }

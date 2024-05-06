@@ -28,14 +28,15 @@ namespace DevTeamUp.BLL.Services
 
         public ProjectDTO CreateProject(CreatedProjectDTO createdProjectDTO, int userId)
         {
+            var user = _dataContext.Users.First(u => u.Id == userId);
             var eProject = _mapper.Map<Project>(createdProjectDTO);
             eProject.OwnerId = userId;
-
             eProject.Stack = _dataContext.Skills
-                .Where(s => createdProjectDTO.TechnologyIds.Contains(s.Id))
+                .Where(s => createdProjectDTO.SkillsIds.Contains(s.Id))
                 .ToList();
 
             _dataContext.Projects.Add(eProject);
+            eProject.Members = new List<User>(new[] { user });
             _dataContext.SaveChanges();
 
 
@@ -127,6 +128,19 @@ namespace DevTeamUp.BLL.Services
             project.Members.Add(_dataContext.Users.First(u => u.Id == userId));
             _dataContext.SaveChanges();
             return _mapper.Map<ProjectDTO>(project);
+        }
+
+        public IEnumerable<ProjectDTO> GetProjectByUser(int userId)
+        {
+            var user = _dataContext.Users
+                .Include(u => u.ProjectsMember)
+                .FirstOrDefault(u => u.Id == userId);
+            if(user == null)
+                throw new ArgumentException("User not found");
+
+            var projects = _mapper.Map<IEnumerable<ProjectDTO>>(user.ProjectsMember);
+
+            return projects;
         }
 
         public bool Delete(int projectId)

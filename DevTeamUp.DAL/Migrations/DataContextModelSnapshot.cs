@@ -18,6 +18,9 @@ namespace DevTeamUp.DAL.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.0")
+                .HasAnnotation("Proxies:ChangeTracking", false)
+                .HasAnnotation("Proxies:CheckEquality", false)
+                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -71,6 +74,13 @@ namespace DevTeamUp.DAL.Migrations
                     b.Property<int>("OwnerId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("shortDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("OwnerId");
@@ -117,12 +127,17 @@ namespace DevTeamUp.DAL.Migrations
                     b.Property<int>("Evaluation")
                         .HasColumnType("int");
 
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
                     b.Property<int>("RecipientId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
+
+                    b.HasIndex("ProjectId");
 
                     b.HasIndex("RecipientId");
 
@@ -160,6 +175,9 @@ namespace DevTeamUp.DAL.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("Bio")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -172,6 +190,9 @@ namespace DevTeamUp.DAL.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GitHubLink")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsProfileCompleted")
@@ -391,13 +412,13 @@ namespace DevTeamUp.DAL.Migrations
 
             modelBuilder.Entity("SkillUser", b =>
                 {
-                    b.Property<int>("SkillId")
+                    b.Property<int>("SkillsId")
                         .HasColumnType("int");
 
                     b.Property<int>("UsersId")
                         .HasColumnType("int");
 
-                    b.HasKey("SkillId", "UsersId");
+                    b.HasKey("SkillsId", "UsersId");
 
                     b.HasIndex("UsersId");
 
@@ -453,6 +474,12 @@ namespace DevTeamUp.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DevTeamUp.DAL.EF.Entities.Project", "Project")
+                        .WithMany()
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("DevTeamUp.DAL.EF.Entities.User", "Recipient")
                         .WithMany("CommentsForUser")
                         .HasForeignKey("RecipientId")
@@ -460,6 +487,8 @@ namespace DevTeamUp.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Author");
+
+                    b.Navigation("Project");
 
                     b.Navigation("Recipient");
                 });
@@ -549,7 +578,7 @@ namespace DevTeamUp.DAL.Migrations
                 {
                     b.HasOne("DevTeamUp.DAL.EF.Entities.Skill", null)
                         .WithMany()
-                        .HasForeignKey("SkillId")
+                        .HasForeignKey("SkillsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
