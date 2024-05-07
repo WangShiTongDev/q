@@ -21,6 +21,10 @@ namespace DevTeamUp.BLL.AutoMapper
 
             CreateMap<UserDto, User>().ReverseMap();
             CreateMap<ReviewDTO, Review>().ReverseMap();
+
+            CreateMap<ProfileDTO, User>().ReverseMap();
+
+            CreateMap<User, ProfileListItemDTO>();
              
         }
 

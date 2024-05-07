@@ -83,14 +83,16 @@ namespace DevTeamUp.Controllers
             if(ModelState.IsValid)
             {
                 var userId = int.Parse(userManager.GetUserId(this.User));
-                var projectDto = new CreatedProjectDTO
-                {
-                    Name = model.Name,
-                    Description = model.Description,
-                    SkillsIds = model.SelectedSkillsIds
-                };
+                //var projectDto = new CreatedProjectDTO
+                //{
+                //    Name = model.Name,
+                //    Description = model.Description,
+                //    SkillsIds = model.SelectedSkillsIds
+                //};
 
-                var newProject = projectService.CreateProject(projectDto, userId);
+                var dto = mapper.Map<CreatedProjectDTO>(model);
+                _ = dto;
+                var newProject = projectService.CreateProject(dto, userId);
                 _ = newProject;
                 return RedirectToAction("Index");
             }

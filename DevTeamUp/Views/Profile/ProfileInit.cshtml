@@ -1,5 +1,6 @@
 ﻿@using DevTeamUp.BLL.DTOs;
-
+@using DevTeamUp.Models;
+@model ProfileInitVM
 
 <div class="container">
     <div class="row justify-content-center">
@@ -12,27 +13,33 @@
 
                 <form asp-action="ProfileInit" id="profileInitForm" method="post">
                     <div class="mb-3">
-                        <input class="form-control" type="text" value="" placeholder="first name" name="firstName" required />
+                        <input class="form-control" type="text" value="@Model.FirstName" placeholder="first name" name="firstName" required />
                     </div>
                     <div class="mb-3">
-                        <input class="form-control" type="text" value="" placeholder="last name" name="lastName" required />
+                        <input class="form-control" type="text" value="@Model.LastName" placeholder="last name" name="lastName" required />
+                    </div>
+                    <div class="mb-3">
+                        <input class="form-control" type="text" value="@Model.GitHubLink" placeholder="GitHub" name="GitHubLink"/>
                     </div>
                     <div class="mb-3">
                     </div>
 
                     <div class="form-gorup mb-3">
-                        <label>about yourself</label>
-                        <textarea class="form-control" >
+                        <label>Bio:</label>
+                        <textarea class="form-control" name="bio" >@Model.Bio</textarea>
+                    </div>
 
-                        </textarea>
+                    <div class="form-gorup mb-3">
+                        <label>about yourself</label>
+                        <textarea class="form-control" name="about">@Model.About</textarea>
                     </div>
 
                     <div class="form-group mb-3">
                         <select class="form-control selectpicker source" data-live-search="true">
                             <option value="">Выберите категорию</option>
-                            @foreach (var item in ViewBag.availableSkills as IList<SkillDTO>)
+                            @foreach (var item in Model.AvailableSkills)
                             {
-                                <option value="@item.Id">@item.Name</option>
+                                <option value="@item.Value">@item.Text</option>
                             }
 
                         </select>
@@ -40,10 +47,11 @@
                         <div class="selected">
                         </div>
                         <div id="hideInputs">
+                           
                         </div>
                     </div>
 
-                    <input type="submit" value="next" />
+                    <input class="btn btn-success " type="submit" value="next" />
                 </form>
                 
             </div>
@@ -108,7 +116,7 @@
         let form = document.querySelector('#profileInitForm');
 
 
-        let skillsSelect = new MySelect(hideInputs, source, selected, 'TechnologiesIds');
+        let skillsSelect = new MySelect(hideInputs, source, selected, 'SelectedSkills');
 
         //form.addEventListener('submit', e =>{
             

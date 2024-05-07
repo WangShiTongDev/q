@@ -34,7 +34,7 @@ namespace DevTeamUp.BLL.Services
             eProject.Stack = _dataContext.Skills
                 .Where(s => createdProjectDTO.SkillsIds.Contains(s.Id))
                 .ToList();
-
+            
             _dataContext.Projects.Add(eProject);
             eProject.Members = new List<User>(new[] { user });
             _dataContext.SaveChanges();

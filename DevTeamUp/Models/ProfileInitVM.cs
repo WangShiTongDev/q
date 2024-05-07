@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,13 @@ namespace DevTeamUp.Models
 {
     public class ProfileInitVM
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string About { get; set; }
-        public IEnumerable<int> TechnologiesIds { get; set; }
+        public required string FirstName { get; set; }
+        public required string LastName { get; set; }
+        public string? About { get; set; }
+        public string? GitHubLink { get; set; }
+        public string? Bio { get; set; }
+        public IEnumerable<SelectListItem> AvailableSkills { get; set; }
+        public IEnumerable<int> SelectedSkills { get; set; }
+
     }
 }

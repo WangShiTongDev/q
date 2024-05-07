@@ -7,5 +7,6 @@
         public string Email { get; set; }
         public IList<ProjectDTO> ProjectsMember { get; set; }
         public IList<SkillDTO> Skill { get; set; }
+
     }
 }

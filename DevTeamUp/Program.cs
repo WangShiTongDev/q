@@ -1,4 +1,5 @@
 //using DevTeamUp.BLL.AutoMapper;
+using DevTeamUp.AutoMapper;
 using DevTeamUp.BLL.AutoMapper;
 using DevTeamUp.BLL.Services;
 using DevTeamUp.DAL.EF;
@@ -79,7 +80,9 @@ namespace DevTeamUp
                 .UseSqlServer(builder.Configuration.GetConnectionString("cs1"))
             );
 
-            builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
+            builder.Services.AddAutoMapper(
+                typeof(MappingProfile).Assembly, 
+                typeof(ViewModelMapper).Assembly);
 
             // services
             builder.Services.AddTransient(typeof(ProjectService));

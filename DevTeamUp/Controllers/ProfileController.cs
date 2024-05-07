@@ -19,13 +19,12 @@ namespace DevTeamUp.Controllers
         private readonly UserManager<User> userManager;
         private readonly IMapper mapper;
 
-        private UserDto _currentUser;
-        private UserDto currentUser
+        //private UserDto _currentUser;
+        private UserDto? currentUser
         {
             get
             {
-                return _currentUser ??
-                    userService.GetUser(int.Parse(userManager.GetUserId(User)));
+                return userService.GetUser(int.Parse(userManager.GetUserId(User)));
             }
         }
         public ProfileController(ProjectService projectService, UserManager<User> userManager, IMapper mapper, UserService userService, SkillService skillService)
@@ -59,46 +58,49 @@ namespace DevTeamUp.Controllers
             return View(userProfile);
         }
 
-       
-
-        [HttpGet("user/{id}")]
+        [HttpGet("[controller]/{id}", Order = int.MaxValue)]
         public IActionResult UserProfile(int id)
         {
+            if(currentUser.Id == id)
+                return RedirectToAction("Index");
             // мб делать проверку на собственную страницу 
             return View();
         }
 
         public IActionResult ProfileInit()
         {
-            ViewBag.availableSkills = skillService.GetSkills();
-            return View();
+          
+            var profile = userService.SelfProfile(currentUser.Id);
+            ProfileInitVM model = mapper.Map<ProfileInitVM>(profile);
+
+            model.AvailableSkills = skillService.GetSkills().Select(s =>
+                    new SelectListItem(s.Name, s.Id.ToString()))
+                .ToList();
+
+
+            _ = model;
+
+            return View(model);
         }
 
         [HttpPost]
         public IActionResult ProfileInit(ProfileInitVM model)
         {
             _ = model;
-            var dto = new ProfileDTO
-            {
-                UserId = currentUser.Id,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                About = model.About,
-                TechnologiesIds = model.TechnologiesIds,
-            };
-            userService.ProfileInit(dto);
-            var completedUser = userService.GetUser(dto.UserId);
+            model.AvailableSkills = skillService.GetSkills().Select(s =>
+                     new SelectListItem(s.Name, s.Id.ToString()))
+                 .ToList();
+            var dto = mapper.Map<ProfileDTO>(model);
+            userService.ProfileInit(dto, currentUser.Id);
+            return View(model);
 
-            _ = completedUser;
-
-            ViewBag.availableSkills = skillService.GetSkills();
-            return View();
-            
         }
 
         public IActionResult List()
         {
-            return View();
+            var profiles = userService.GetProfiles();
+            _ = profiles;
+            return View(profiles);
         }
     }
 }

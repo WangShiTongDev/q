@@ -23,7 +23,7 @@ namespace DevTeamUp.BLL.Services
             _mapper = mapper;
         }
 
-        public UserDto GetUser(int id)
+        public UserDto? GetUser(int id)
         {
 
             // Может быть проблема при мапинге User to
@@ -35,7 +35,7 @@ namespace DevTeamUp.BLL.Services
                 .FirstOrDefault(x => x.Id == id);
 
             if (user == null)
-                throw new ArgumentException();
+                return null;
 
             var dto = _mapper.Map<UserDto>(user);
             return dto;
@@ -67,6 +67,16 @@ namespace DevTeamUp.BLL.Services
             return profile;
         }
 
+        public ProfileDTO SelfProfile(int userId)
+        {
+            var user = _dataContext.Users.FirstOrDefault(u => u.Id == userId);
+            if (user == null)
+                throw new ArgumentException();
+
+            return _mapper.Map<ProfileDTO>(user);
+        }
+
+
         public UserDto ChangeSkills(int id, IList<int> skillsIds)
         {
             var user = _dataContext.Users.Include( u => u.Skills).First(x => x.Id == id);
@@ -90,19 +100,48 @@ namespace DevTeamUp.BLL.Services
             return user.IsProfileCompleted;
         }
 
-        public void ProfileInit(ProfileDTO profile)
+        public void ProfileInit(ProfileDTO profile, int userId)
         {
-            var currentUser = _dataContext.Users.First(u => profile.UserId == u.Id);
+            var currentUser = _dataContext.Users.First(u => userId == u.Id);
 
             currentUser.FirstName = profile.FirstName;
             currentUser.LastName = profile.LastName;
             currentUser.About = profile.About;
-            currentUser.Skills = _dataContext.Skills
-                .Where(s => profile.TechnologiesIds.Contains(s.Id))
+            currentUser.GitHubLink = profile.GitHubLink;
+            currentUser.Bio = profile.Bio;
+            //currentUser.Skills = 
+
+            var skillIds = profile.Skills.Select(s => s.Id).ToList();
+            var res = _dataContext.Skills
+                .Where(s => skillIds.Contains(s.Id))
                 .ToList();
 
-            currentUser.IsProfileCompleted = true;
+           
+                
+            _ = res;
+            currentUser.Skills.Clear();
+            currentUser.Skills = res;
+            currentUser.IsProfileCompleted = true;  
             _dataContext.SaveChanges();
+            //currentUser.FirstName = profile.FirstName;
+            //currentUser.LastName = profile.LastName;
+            //currentUser.About = profile.About;
+            //currentUser.Skills = _dataContext.Skills
+            //    .Where(s => profile.TechnologiesIds.Contains(s.Id))
+            //    .ToList();
+
+            //currentUser.IsProfileCompleted = true;
+            //_dataContext.SaveChanges();
+        }
+
+        public IList<ProfileListItemDTO> GetProfiles()
+        {
+
+            var users = _dataContext.Users.Where(u => u.IsProfileCompleted).ToList();
+
+            var profiles = _mapper.Map<IList<ProfileListItemDTO>>(users);
+
+            return profiles;
         }
     }
 }

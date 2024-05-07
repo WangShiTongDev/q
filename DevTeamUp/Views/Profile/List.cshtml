@@ -1,4 +1,7 @@
-﻿<div class="container bg-light p-5">
+﻿@using DevTeamUp.BLL.DTOs;
+@model IList<ProfileListItemDTO>
+
+<div class="container bg-light p-5">
     <div class="row mb-3">
         <div class="col">
             <form >
@@ -12,27 +15,29 @@
     </div>
     <div class="row">
        
-        @for (int i = 0; i < 15; i++)
+        @foreach (var item in Model)
         {
             <div class="col-lg-4 col-md-12">
                 <div class="profile-list-item card mb-4 box-shadow position-relative ">
                     <div class="card-body">
-                        <h5 class="card-title">Title</h5>
+                        <a class="card-title text-decoration-none link-unstyled text-black fw-bold  "
+                            style="font-size: 18pt"
+                           href="/Profile/@item.Id">@item.FirstName @item.LastName</a>
                         <div>
-                            <ul class="skills">
-                                @for (int j = 0; j < 5; j++)
+                            <ul class="project-skills ps-0 mt-1">
+                                @foreach (var skill in item.Skills)
                                 {
-                                   <li class="user-skill-item">Skill name</li>
+                                    <li class="project-skill-item p-1">@skill.Name</li>
                                 }
                             </ul>
                         </div>
                         <div class="card-subtitle">
-                            Sapien elit in malesuada semper mi, id sollicitudin urna fermentum.
+                            @item.Bio
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
 
-                            <small class="status-project">find team</small>
-                            <small class="members-counter">1/4</small>
+                            @*<small class="status-project">find team</small>
+                            <small class="members-counter">Rating: 4/5</small>*@
                         </div>
                     </div>
                 </div>

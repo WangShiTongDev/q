@@ -17,7 +17,7 @@ namespace DevTeamUp.DAL.EF.Entities
     public class Project : EntityBase
     {
         public string Name { get; set; }
-        public required string shortDescription { get; set; }
+        public string shortDescription { get; set; }
         public string Description { get; set; }
         public ProjectStatus Status { get; set; } = ProjectStatus.Open;
 

@@ -6,13 +6,16 @@ using System.Threading.Tasks;
 
 namespace DevTeamUp.BLL.DTOs
 {
+    // use for profile init
     public class ProfileDTO
     {
-        public int UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string About { get; set; }
-        public IEnumerable<int> TechnologiesIds { get; set; }
+        public string? GitHubLink { get; set; }
+        public string? Bio { get; set; }
+
+        public IList<SkillDTO> Skills { get; set; }
 
     }
 }

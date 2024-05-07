@@ -10,6 +10,7 @@ namespace DevTeamUp.BLL.DTOs
     {
         public string Name { get; set; }
         public string Description { get; set; }
+        public string ShortDescription { get; set; }
         public IList<int> SkillsIds { get; set; }
     }
 }

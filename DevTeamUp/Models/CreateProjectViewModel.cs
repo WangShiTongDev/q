@@ -14,7 +14,8 @@ namespace DevTeamUp.Models
         public string Name { get; set; }
         public string Description { get; set; }
 
-        
+        public string shortDescription { get; set; }
+
         public IList<SelectListItem> Skills { get; set; } = new List<SelectListItem>();
         
         public IList<int> SelectedSkillsIds { get; set; }
