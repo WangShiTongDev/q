@@ -9,6 +9,7 @@ namespace DevTeamUp.BLL.DTOs
     // use for profile init
     public class ProfileDTO
     {
+        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string About { get; set; }

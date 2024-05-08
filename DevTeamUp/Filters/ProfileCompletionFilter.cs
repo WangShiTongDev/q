@@ -18,11 +18,19 @@ namespace DevTeamUp.Filters
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var path = filterContext.HttpContext.Request.Path;
-            
 
-            if(path == "/Profile/ProfileInit"  )
+            var controllerName = filterContext.RouteData.Values["controller"].ToString();
+
+            if (controllerName == "Account")
             {
+                base.OnActionExecuting(filterContext);
+                return;
+            }
+
+            var path = filterContext.HttpContext.Request.Path;
+            if (path == "/Profile/ProfileInit"  )
+            {
+                base.OnActionExecuting(filterContext);
                 return;
             }
 
@@ -34,21 +42,26 @@ namespace DevTeamUp.Filters
             {
                 // Если пользователь не аутентифицирован, перенаправляем его на страницу входа
                 filterContext.Result = new RedirectResult("~/Account/Login");
-                return;
-            }
+                
 
-            var userIdClaim = user.FindFirst(ClaimTypes.NameIdentifier);
-            if (userIdClaim != null)
+            }
+            else
             {
-                var userId = userIdClaim.Value;
-                if (!_userService.IsProfileCompleted(int.Parse(userId)))
+                var userIdClaim = user.FindFirst(ClaimTypes.NameIdentifier);
+                if (userIdClaim != null)
                 {
+                    var userId = userIdClaim.Value;
+                    if (!_userService.IsProfileCompleted(int.Parse(userId)))
+                    {
 
-                    //filterContext.Result = new RedirectResult("~/Profile/ProfileInit");
-                    filterContext.Result = new RedirectToActionResult("ProfileInit", "Profile", null);
-                    return;
+                        //filterContext.Result = new RedirectResult("~/Profile/ProfileInit");
+                        filterContext.Result = new RedirectToActionResult("ProfileInit", "Profile", null);
+                        return;
+                    }
                 }
+
             }
+
 
             base.OnActionExecuting(filterContext);
         }

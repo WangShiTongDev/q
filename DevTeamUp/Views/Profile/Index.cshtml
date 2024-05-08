@@ -1,110 +1,11 @@
 ﻿@using DevTeamUp.BLL.DTOs;
-@*@using DevTeamUp.Models.Profile;
-@model ProfileViewModel
 
-<h1>My profile index page</h1>
-
-<p>User info</p>
-<div class="userInfo">
-    <form id="profileInfoForm" method="post" asp-action="Index">
-        <div class="input-group mb-2">
-            
-            <input name="userName" class="form-control" type="text" value="@Model.Username" placeholder="user name" />
-        </div>
-        <div class="skillsGroup input-group mb-2 row">
-            
-            <select id="availableSkills" class="mb-5 skill-select" multiple>
-                @foreach (var skill in Model.AvailableSkills)
-                {
-                    <option class="skill-item btn btn-info" data-id="@skill.Value" value="@skill.Value" selected>
-                        <span>@skill.Text</span>
-                    </option>
-                }
-            </select>
-            <hr />
-            <select asp-for="@Model.SelectSkills" id="userSkills" multiple" class="skill-select">
-                
-                @if (Model.Skills != null)
-                {
-                    @foreach (var skill in Model.Skills)
-                    {
-                        <option class="skill-item btn btn-info" data-id="@skill.Value" value="@skill.Value" selected>
-                            <span>@skill.Text</span>
-                        </option>
-                    }
-                }
-            </select>
-        </div>
-        <div class="input-group">
-            <input class="btn btn-primary" type="submit" value="edit" />
-        </div>
-    </form>
-</div>
-<hr />
-
-<p>Projects:</p>
-<div class="projects">
-</div>
-<a asp-action="CreateProject" asp-controller="Project">Create project</a>
-<hr />
-
-<p>reviews:</p>
-<div class="reviews">
-</div>
-<hr />
-
-@section Scripts {
-    <script>
-        const availableSkills = document.querySelector('#availableSkills');
-        const userSkills = document.querySelector('#userSkills');
-
-
-        const profileInfoFormSubmitHandle = (e) =>{
-            e.preventDefault();
-            let formData = new FormData(e.currentTarget);
-            for (const pair of formData.entries()) {
-                console.log(pair[0] + ': ' + pair[1]);
-            }
-            let res = userSkills.querySelectorAll('.skill-item');
-            res.forEach( i => {
-                formData.append('Skills', i.dataset.id);
-            });
-            
-
-        }
-
-
-        const toggleSkillsSelection = (element) => {
-            if(element.parentNode ===  availableSkills){
-                availableSkills.removeChild(element);
-                userSkills.appendChild(element);
-
-            }else if(element.parentNode === userSkills){
-                userSkills.removeChild(element);
-                availableSkills.appendChild(element);
-            }
-        }
-
-        let items = document.querySelectorAll('.skill-item');
-        
-        items.forEach(i => {
-            i.addEventListener('click', e => {
-                toggleSkillsSelection(e.currentTarget)
-            })
-        })
-        
-        
-
-       
-    </script>
-
-}*@
 
 @model ProfilePageDTO
 
-<div class="container p-5 " style="background-color: #F0F3FF" >
-    <div class="row mb-3" style="background-color: #211951; color: #F0F3FF; padding: 25px; border-radius: 1rem;">
-        <div class="col-4">
+<div class="container p-5 white-bg">
+    <div class="row mb-3" style="background-color: #F2F5F8; padding: 25px; border-radius: 0.7rem;">
+        @*<div class="col-4">
             <div class="img-box avatar" >
                 <img src="https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png" alt="" />
             </div>
@@ -123,52 +24,55 @@
                     <a href="" class="btn btn-info">edit</a>
                 </div>
             </div>
+        </div>*@
+        <div class="col">
+            <h1> @Model.FirstName @Model.LastName</h1>
+            <p>
+                Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
+            </p>
+            <div class="d-flex justify-content-between">
+                <a href="#">GitHub</a>
+                <a asp-action="ProfileInit" asp-controller="Profile">Edit</a>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+          
+            <ul class="skills">
+                @foreach (var skill in Model.Skills)
+                {
+                    <li class="skill-item">@skill.Name</li>
+                }
+
+            </ul>
         </div>
     </div>
     
-    <div class="row mb-3">
+    <div class="row mb-5">
         <div class="col">
-            <hr />
-            <div>
-                <p>about</p>
-                <div class="about">
+            <div class="about">
+                <p>
+                    @Model.About
                     Sapien elit in malesuada semper mi, id sollicitudin urna fermentum.
-                </div>
+                </p>
             </div>
+
         </div>
     </div>
+   
     <div class="row">
         <div class="col">
-            <hr />
             <div>
-                <p>skills</p>
-                <ul class="skills">
-                    @foreach(var skill in Model.Skills)
-                    {
-                        <li class="skill-item">@skill.Name</li>
-                    }
-
-                    @for (int i = 0; i < 0; i++)
-                    {
-                        <li class="skill-item">Shill name</li>
-                    }
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <hr />
-
-            <div>
-                <div class="mb-2">
-                    <p class="">Projects</p>
+                <div class="mb-2 d-flex justify-content-between pb-1 border-bottom border-3">
+                    <h4 class="">Projects</h4>
                     <a class="btn btn-success " asp-action="CreateProject" asp-controller="Project">Create project</a>
                 </div>
                 <div class="profile-projects">
                     @foreach (var project in Model.Projects)
                     {
-                        <div class="project-list-item card mb-4 box-shadow position-relative ">
+                        <a href="/Project/@project.Id" class="text-decoration-none text-black">
+                            <div class="project-list-item card mb-4 box-shadow position-relative ">
 
                             <div class="card-body">
                                 <h5 class="card-title">@project.Name</h5>
@@ -194,6 +98,7 @@
                                 </div>
                             </div>
                         </div>
+                        </a>
                     }
                     @for (int i = 0; i < 0; i++)
                     {
@@ -255,13 +160,13 @@
     </div>
     <div class="row">
         <div class="col">
-            <hr />
+            
 
             <div>
-                <hr />
+                
                 <p>reviws</p>
                 <div class="container">
-                    @for (int i = 0; i < 5; i++)
+                    @for (int i = 0; i < 0; i++)
                     {
                     <div class="row mb-4 pb-2 border-bottom">
                         <div class="col-9">

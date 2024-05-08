@@ -134,7 +134,7 @@ namespace DevTeamUp.BLL.Services
             //_dataContext.SaveChanges();
         }
 
-        public IList<ProfileListItemDTO> GetProfiles()
+        public IList<ProfileListItemDTO > GetProfiles()
         {
 
             var users = _dataContext.Users.Where(u => u.IsProfileCompleted).ToList();

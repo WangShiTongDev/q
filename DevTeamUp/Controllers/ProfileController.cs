@@ -3,7 +3,6 @@ using DevTeamUp.BLL.DTOs;
 using DevTeamUp.BLL.Services;
 using DevTeamUp.DAL.EF.Entities;
 using DevTeamUp.Models;
-using DevTeamUp.Models.Profile;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;

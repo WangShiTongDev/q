@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DevTeamUp.Controllers
 {
-    [AllowAnonymous]
     //[ServiceFilter(typeof(ProfileCompletionFilter))]
+    [AllowAnonymous]
     public class AccountController : Controller
     {
 
@@ -41,10 +41,10 @@ namespace DevTeamUp.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            ModelState.AddModelError(String.Empty, "BAN");
+            ViewBag.Msg = "Невірний логін або пароль";
 
 
-            return RedirectToAction("Index", "Home");
+            return View();
         }
 
 
@@ -73,12 +73,15 @@ namespace DevTeamUp.Controllers
                 return RedirectToAction("ProfileInit", "Profile");
             }
 
-
+            ViewBag.Msg = "Схоже такий користувач вже існує";
             return View();
         }
 
         public IActionResult Logout()
         {
+
+            signInManager.SignOutAsync();
+            
             return RedirectToAction("Login", "Account");
         }
     }

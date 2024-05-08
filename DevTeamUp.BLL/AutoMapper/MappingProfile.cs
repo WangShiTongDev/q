@@ -25,7 +25,11 @@ namespace DevTeamUp.BLL.AutoMapper
             CreateMap<ProfileDTO, User>().ReverseMap();
 
             CreateMap<User, ProfileListItemDTO>();
-             
+
+
+            CreateMap<Project, ProjectPageDTO>()
+                .ForMember(p => p.OwnerProfile, opt => opt.MapFrom(s => s.Owner))
+                .ForMember(p => p.Members, opt => opt.MapFrom(s => s.Members));
         }
 
     }

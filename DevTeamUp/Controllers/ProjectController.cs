@@ -29,42 +29,72 @@ namespace DevTeamUp.Controllers
         [HttpGet("[controller]/{id}", Order = int.MaxValue)]
         public IActionResult Index(int id)
         {
+            try
+            {
 
-            return View();
+                var dto = projectService.GetProject(id);
+                var model= mapper.Map<ProjectPageViewModel>(dto);
+                _ = model;
+
+
+                var userId = int.Parse(userManager.GetUserId(this.User));
+                if (userId == model.OwnerProfile.Id)
+                {
+                    model.IsOwner = true;
+                    model.IsMember = true;
+                }
+                else if(model.Members.Any(u => u.Id == userId))
+                {
+                    model.IsMember= true;
+                }
+                return View(model);
+            }
+            catch (Exception)
+            {
+
+                return Ok("Project not found");
+                
+            }
+
         }
 
         public IActionResult Test()
         {
-            return Ok("test");
+            return RedirectToRoute("[controller]", new { id = 11 });
         }
 
-        // view projects list
-        public IActionResult List(ProjectsFilter filter, int page = 1)
+        public IActionResult List()
         {
-            _ = filter;
-            ProjectsListDTO projectsListDTO = projectService.GetPage(page, filter);
-            ProjectsListViewModel model = new()
-            {
-                Count = projectsListDTO.Projects.Count,
-                TotalCount = projectsListDTO.TotalCount,
-                TotalPages = projectsListDTO.TotalPages,
-                Projects = projectsListDTO.Projects.Select(dto => new ProjectViewModel
-                {
-                    Id = dto.Id,
-                    Name = dto.Name,
-                    Description = dto.Description,
-                    OwnerId = dto.OwnerId,
-                    Stack = dto.Stack.Select(skill => new SkillViewModel { 
-                        Id = skill.Id,
-                        Name = skill.Name,
-                    })
-                    .ToList()
+            //_ = filter;
+            //ProjectsListDTO projectsListDTO = projectService.GetPage(page, filter);
+            //ProjectsListViewModel model = new()
+            //{
+            //    Count = projectsListDTO.Projects.Count,
+            //    TotalCount = projectsListDTO.TotalCount,
+            //    TotalPages = projectsListDTO.TotalPages,
+            //    Projects = projectsListDTO.Projects.Select(dto => new ProjectViewModel
+            //    {
+            //        Id = dto.Id,
+            //        Name = dto.Name,
+            //        Description = dto.Description,
+            //        OwnerId = dto.OwnerId,
+            //        Stack = dto.Stack.Select(skill => new SkillViewModel { 
+            //            Id = skill.Id,
+            //            Name = skill.Name,
+            //        })
+            //        .ToList()
 
-                }).ToList()
-            };
+            //    }).ToList()
+            //};
 
-            ViewBag.AvailableTechnologies = listItemsAvailableTechnologies();
-            return View(model);
+            //ViewBag.AvailableTechnologies = listItemsAvailableTechnologies();
+            //return View(model);
+
+
+            var projects = projectService.GetAllProjects();
+
+            
+            return View(projects);
         }
 
         public IActionResult CreateProject()
@@ -100,9 +130,24 @@ namespace DevTeamUp.Controllers
             return View(model);
         }
 
+        [HttpGet("[controller]/join/{projectId}")]
         public IActionResult JoinToProject(int projectId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var userId = int.Parse(userManager.GetUserId(this.User));
+                var project = projectService.JoinToProject(projectId, userId);
+
+                return Redirect($"/Project/{project.Id}");
+                //return RedirectToRoute("[controller]", new { id = project.Id });
+            }
+            catch (Exception)
+            {
+
+                
+            }
+
+            return Ok("error");
         }
 
         private IList<SelectListItem> listItemsAvailableTechnologies()

@@ -1,5 +1,6 @@
 html {
   font-size: 14px;
+  font-family: sans-serif;
 }
 
 @media (min-width: 768px) {
@@ -8,30 +9,25 @@ html {
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
 
 html {
-  position: relative;
+  /*position: relative;*/
   min-height: 100%;
 }
 
+
 body {
     margin-bottom: 60px;
-    background-color: #211951;
+    background-color: #F2F5F8;
 }
 
-/*auth page*/
-.gradient-custom {
-    /* fallback for old browsers */
-    background: #6a11cb;
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
+.white-bg {
+    background-color: #FFFFFF;
 }
 
+.mc-shadow {
+    box-shadow: 0px 0px 20px 0px #cccccc;
+}
 
 .skill-select {
     appearance: none;
@@ -65,16 +61,16 @@ body {
 }
 
 .skill-item {
-    background-color: #15F5BA;
+    background-color: #F2F5F8;
     display: inline-block;
-    padding: 0.5rem 1rem;
-    border-radius: 0.8rem;
-    color: #211951;
+    padding: 0.3rem 1rem;
+    border-radius: 3px;
+    color: black;
 }
 
 /* PROJECT list page*/
 .project-list-item{
-    cursor: pointer;
+    
 }
 
 .project-list-item .project-skills{
@@ -83,7 +79,7 @@ body {
 }
 
 .project-skills .project-skill-item {
-    background-color: #15F5BA;
+    background-color: #F2F5F8;
     display: inline-block;
     padding: 0.1rem 0.3rem;
     border-radius: 0.3rem;

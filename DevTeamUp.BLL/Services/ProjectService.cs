@@ -123,9 +123,15 @@ namespace DevTeamUp.BLL.Services
         {
             var project = _dataContext.Projects.FirstOrDefault(p => p.Id == projectId);
             if (project == null)
-                throw new ArgumentException();
+                throw new ArgumentException("Такого проекту не існує");
 
-            project.Members.Add(_dataContext.Users.First(u => u.Id == userId));
+            var user = _dataContext.Users.FirstOrDefault(u => u.Id == userId);
+
+            if (user == null) throw new AggregateException("Невідомий користувач");
+            if (project.Members.Contains(user)) throw new ArgumentException("Ви вже в цьому проекті");
+            
+
+            project.Members.Add(user);
             _dataContext.SaveChanges();
             return _mapper.Map<ProjectDTO>(project);
         }
@@ -150,6 +156,13 @@ namespace DevTeamUp.BLL.Services
             throw new NotImplementedException();
         }
 
+        public ProjectPageDTO GetProject(int projectId)
+        {
+            var project = _dataContext.Projects.First(p => p.Id == projectId);
 
+            var dto = _mapper.Map<ProjectPageDTO>(project);
+
+            return dto; 
+        }
     }
 }

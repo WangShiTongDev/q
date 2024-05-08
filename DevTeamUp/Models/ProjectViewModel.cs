@@ -11,9 +11,9 @@ namespace DevTeamUp.Models
     {
 
         public int Id { get; set; }
-        [Required(ErrorMessage = "Name is empty")]
         public string Name { get; set; }
         public string Description { get; set; }
+        public string ShortDescription { get; set; }
         public int OwnerId { get; set; }
 
         public IList<SkillViewModel> Stack { get; set; }

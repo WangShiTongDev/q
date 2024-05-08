@@ -1,9 +1,14 @@
-﻿<div class="container bg-light p-3 px-5">
+﻿@model ProjectPageViewModel
+
+<div class="container bg-light p-3 px-5">
     <div class="row">
         <div class="col ">
             <div class="d-flex justify-content-end ">
-
-                <a href="" class="btn btn-success me-2" >join</a>
+                @if (!Model.IsMember)
+                {
+                    <a href="/Project/join/@Model.Id" class="btn btn-success me-2" >join</a>
+                    
+                }
             
                 <div class="btn-group ">
                     <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -11,10 +16,22 @@
                     </button>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        @if (Model.IsOwner)
+                        {
+                        <li><a class="dropdown-item" href="#">Редагувати проект</a></li>
+                        <li><a class="dropdown-item" href="#">Бажаючі</a></li>
+                            
+                        }
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Separated link</a></li>
+                        @if (Model.IsOwner)
+                        {
+                            <li><a class="dropdown-item text-danger" href="#">Delete</a></li>
+                        }
+                        @if (Model.IsMember)
+                        {
+                            <li><a class="dropdown-item text-danger" href="#">Leave</a></li>
+                        }
+
                     </ul>
                 </div>
             </div>
@@ -26,11 +43,14 @@
         <div class="col">
             <span>status</span>
             <div>
-                <h1 class="fw-bold">project name</h1>
+                <h1 class="fw-bold">@Model.Name</h1>
+               
+
+
             </div>
         </div>
         <div class="col d-flex justify-content-end ">
-            <a href="">creator</a>
+            <a href="/Profile/@Model.OwnerProfile.Id">Creator: @Model.OwnerProfile.FirstName @Model.OwnerProfile.LastName</a>
         </div>
     </div>
     <hr />
@@ -38,9 +58,9 @@
         <div class="col">
             <div class="stack">
                 <ul class="project-skills ps-0 mt-1">
-                    @for (int j = 0; j < 5; j++)
+                    @foreach (var item in Model.Stack)
                     {
-                        <li class="project-skill-item p-1">Skill name</li>
+                        <li class="project-skill-item p-1">@item.Name</li>
                     }
                 </ul>
             </div>
@@ -48,82 +68,35 @@
     </div>
     <div class="row ">
         <div class="shortDescription fw-bolder">
-            Laoreet ac, aliquam sit amet justo nunc tempor, metus vel placerat suscipit, orci nisl iaculis eros, a tincidunt nisi odio eget lorem nulla condimentum tempor mattis ut vitae feugiat augue cras ut metus a risus iaculis scelerisque eu ac ante fusce non varius purus aenean nec magna felis fusce vestibulum.
+            @Model.ShortDescription
         </div>
-        <div class="description mt-5" >
-            Sapien elit in malesuada semper mi, id sollicitudin urna fermentum.
-            Ut fusce varius nisl ac ipsum gravida vel pretium tellus.
-            Tincidunt integer eu augue augue nunc elit dolor, luctus placerat.
-            Scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut.
-            Laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
-            Placerat suscipit, orci nisl iaculis eros, a tincidunt nisi odio.
-            Eget lorem nulla condimentum tempor mattis ut vitae feugiat augue.
-            Cras ut metus a risus iaculis scelerisque eu ac ante.
-            Fusce non varius purus aenean nec magna felis fusce vestibulum.
-            Velit mollis odio sollicitudin lacinia aliquam posuere, sapien elementum lobortis.
-            Tincidunt, turpis dui ornare nisl, sollicitudin interdum turpis nunc eget.
-            Sem nulla eu ultricies orci praesent id augue nec lorem.
-            Pretium congue sit amet ac nunc fusce iaculis lorem eu.
-            Diam hendrerit at mattis purus dignissim vivamus mauris tellus, fringilla.
-            Vel dapibus a, blandit quis erat vivamus elementum aliquam luctus.
-            Etiam fringilla pretium sem vitae sodales mauris id nulla est.
-            Praesent laoreet, metus vel auctor aliquam, eros purus vulputate leo.
-            Eget consequat neque quam id tellus duis ultricies tempor tortor.
-            Vitae dignissim ligula mattis nec in hac habitasse platea dictumst.
-            Ut arcu enim, dictum quis ultrices id, sagittis eget nulla.
-            Sed nunc mi, congue ut ultricies ac, varius a eros.
-            Donec porttitor, libero fermentum fringilla laoreet, eros arcu sodales ante.
-            Ut dictum risus lectus vel quam integer ultricies, nunc eget.
-            Elementum euismod, orci enim vestibulum orci, nec suscipit urna odio.
-            Et tellus suspendisse suscipit orci sit amet sem venenatis nec.
-            Lobortis sem suscipit nullam nec imperdiet velit mauris eu nisi.
-            A felis imperdiet porta at ac nulla vivamus faucibus felis.
-            Nec dolor pretium eget pellentesque dolor suscipit maecenas vitae enim.
-            Arcu, at tincidunt nunc pellentesque eleifend vulputate lacus, vel semper.
-            Sem ornare sit amet proin sem sapien, auctor vel faucibus.
-            Id, aliquet vitae ipsum etiam auctor ultricies ante, at dapibus.
-            Urna viverra sed nullam mi arcu, tempor vitae interdum a.
-            Sodales non urna vestibulum dignissim auctor mauris, ac elementum purus.
-            Fermentum vitae duis placerat laoreet risus, sit amet eleifend tellus.
-            Lobortis non vivamus iaculis dapibus leo a ornare cras vel.
-            Sem at felis convallis mollis posuere ultrices dolor sed tellus.
-            Arcu, accumsan a consectetur sit amet, volutpat eget lorem phasellus.
-            Quis ipsum orci integer sodales tincidunt nibh a elementum ut.
-            Ac libero nec orci euismod euismod nec at nulla duis.
-            Malesuada faucibus porta aliquam nec consequat eros sed porttitor placerat.
-            Dolor, accumsan imperdiet neque ornare in aenean non elit non.
-            Leo porta mattis mauris non dolor nunc, id congue odio.
-            Donec tellus nisl, semper id consectetur vitae, dapibus dictum nisl.
-            Morbi sed augue purus sed dictum diam convallis tortor interdum.
-            Volutpat phasellus dapibus arcu sit amet neque vulputate sed elementum.
-            Orci fringilla in hac habitasse platea dictumst maecenas ut dui.
-            Diam curabitur adipiscing vestibulum libero, nec varius dui pulvinar eget.
-            Vestibulum ante ipsum primis in faucibus orci luctus et ultrices.
-            Posuere cubilia curae; aliquam dui neque, varius eu laoreet vel.
+        <div class="description mt-3" >
+            @Model.Description
         </div>
     </div>
     <div class="row">
         <div class="col">
             <hr class="my-4"/>
-            <h5>Members (4/5)</h5>
+            <h5>Members @Model.Members.Count </h5>
             
             <div class="members">
-                @for (int i = 0; i < 4; i++)
+                @foreach (var member in Model.Members)
                 {
-                    <div class="">
+                    <a href="/Profile/@member.Id" class="text-decoration-none text-black">
+
                         <div class="profile-list-item card mb-4 box-shadow position-relative ">
                             <div class="card-body">
-                                <h5 class="card-title">Title</h5>
+                                <h5 class="card-title">@member.FirstName @member.LastName</h5>
                                 <div>
                                     <ul class="project-skills ps-0 mt-1">
-                                        @for (int j = 0; j < 5; j++)
+                                        @foreach (var item in member.Skills)
                                         {
-                                            <li class="project-skill-item p-1">Skill name</li>
+                                            <li class="project-skill-item p-1">@item.Name</li>
                                         }
                                     </ul>
                                 </div>
                                 <div class="card-subtitle">
-                                    Sapien elit in malesuada semper mi, id sollicitudin urna fermentum.
+                                    @member.Bio
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center">
 
@@ -132,12 +105,16 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
+                
                 }
             </div>
         </div>
     </div>
-    <div class="row mt-5">
+    @if (!Model.IsMember)
+    {
+        
+        <div class="row mt-5">
             <div class="col">
                 <div class="card">
                     <div class="card-header">
@@ -154,4 +131,5 @@
                 
             </div>
         </div>
+    }
 </div>
