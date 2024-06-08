@@ -12,22 +12,22 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" href="#">Navbar</a>
+                <a class="navbar-brand" href="#">Головна</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" asp-action="Index" asp-controller="Profile">Profile</a>
+                            <a class="nav-link active" aria-current="page" asp-action="Index" asp-controller="Profile">Профіль</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-action="List" asp-controller="Profile">Users</a>
+                            <a class="nav-link" asp-action="List" asp-controller="Profile">Користувачі</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-action="List" asp-controller="Project">Projects</a>
+                            <a class="nav-link" asp-action="List" asp-controller="Project">Проекти</a>
                         </li>
-                        <li class="nav-item dropdown">
+ @*                       <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Dropdown
                             </a>
@@ -38,16 +38,16 @@
                                 <li><a class="dropdown-item" href="#">Something else here</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item">
+ *@                       @*<li class="nav-item">
                             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                        </li>
+                        </li>*@
                     </ul>
                     @*<form class="d-flex">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>*@
                     <div class="d-flex">
-                        <a asp-action="Logout" asp-controller="Account" class="btn btn-outline-danger">Exit</a>
+                        <a asp-action="Logout" asp-controller="Account" class="btn btn-outline-danger">Вихів</a>
 
                     </div>
                 </div>
@@ -55,7 +55,7 @@
         </nav>
     </header>
     <div class="container pt-4 " >
-        <main role="main" class=" mc-shadow">
+        <main role="main" class=" ">
             @RenderBody()
         </main>
     </div>

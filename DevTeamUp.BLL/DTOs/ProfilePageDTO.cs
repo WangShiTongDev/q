@@ -15,7 +15,7 @@ namespace DevTeamUp.BLL.DTOs
         public string About { get; set; }
         public string? GitHubLink { get; set; }
         public string Bio { get; set; }
-        
+        public bool IsProfileOwner { get; set; }
         public IEnumerable<SkillDTO> Skills { get; set; }
         public IEnumerable<ProjectDTO> Projects{ get; set; }
         public IEnumerable<ReviewDTO> Reviews { get; set; }

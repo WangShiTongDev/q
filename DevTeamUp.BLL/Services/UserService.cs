@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DevTeamUp.BLL.DTOs;
+using DevTeamUp.BLL.Filters;
 using DevTeamUp.DAL.EF;
 using DevTeamUp.DAL.EF.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -51,10 +52,13 @@ namespace DevTeamUp.BLL.Services
 
                 .FirstOrDefault(x => x.Id == userId);
 
+            if (user == null) throw new ArgumentException("User not found");
             var profile = new ProfilePageDTO();
             profile.FirstName = user.FirstName;
             profile.LastName = user.LastName;
             profile.About = user.About;
+            profile.Bio = user.Bio;
+            profile.GitHubLink = user.GitHubLink;
             profile.Skills = user.Skills.Select(s => new SkillDTO
             {
                 Id = s.Id,
@@ -134,10 +138,17 @@ namespace DevTeamUp.BLL.Services
             //_dataContext.SaveChanges();
         }
 
-        public IList<ProfileListItemDTO > GetProfiles()
+        public IList<ProfileListItemDTO > GetProfiles(ProfileFilter? filter)
         {
+            var query = _dataContext.Users.Where(u => u.IsProfileCompleted);
+            if(filter != null && !string.IsNullOrEmpty(filter?.Query))
+            {
+                query = query.Where(u => u.FirstName.ToLower().Contains(filter.Query) || 
+                    u.LastName.ToLower().Contains(filter.Query) 
+                );
+            }
 
-            var users = _dataContext.Users.Where(u => u.IsProfileCompleted).ToList();
+            var users = query.ToList();
 
             var profiles = _mapper.Map<IList<ProfileListItemDTO>>(users);
 

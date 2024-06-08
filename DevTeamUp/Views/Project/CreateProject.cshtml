@@ -23,21 +23,24 @@
         <div class="col">
             <div class="card">
                 <div class="card-header">
-                    <h3>Create project</h3>
+                    <h3>Створити проект</h3>
                 </div>
                 <div class="card-body">
                     <form asp-action="CreateProject" asp-controller="Project" method="post">
                         <div class="mb-3">
-                            <input name="name" class="form-control" type="text" value="" placeholder="project name"/>
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            <input name="name" class="form-control" type="text" value="" placeholder="Назва" readonly />
                         </div>
                         <div class="mb-3">
-                            <input name="shortDescription" class="form-control" type="text" value="" placeholder="shortDescription" />
+                            @Html.ValidationMessageFor(model => model.shortDescription, "", new { @class = "text-danger" })
+                            <input name="shortDescription" class="form-control" type="text" value="" required placeholder="Короткий опис"  />
                         </div>
                         
                         
                         <div class="mb-3 p-3 border border-3 rounded-3 ">
+                            @Html.ValidationMessageFor(model => model.SelectedSkillsIds, "", new { @class = "text-danger" })
                             <select class="form-control selectpicker source" data-live-search="true">
-                                <option value="">Выберите категорию</option>
+                                <option value="">Технології</option>
                                 @foreach (var item in Model.Skills as IList<SelectListItem>)
                                 {
                                     <option value="@item.Value">@item.Text</option>
@@ -51,10 +54,11 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <textarea name="Description" class="form-control " placeholder="description"></textarea>
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            <textarea name="Description" class="form-control " placeholder="Опис" required ></textarea>
                         </div>
-                        <div class="mb-3"></div>
-                        <input class="w-100 btn btn-success" type="submit" value="create" />
+                        
+                        <input class="w-100 btn btn-success" type="submit" value="Створити" />
                     </form>
                 </div>
             </div>

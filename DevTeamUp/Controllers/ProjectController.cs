@@ -130,15 +130,17 @@ namespace DevTeamUp.Controllers
             return View(model);
         }
 
-        [HttpGet("[controller]/join/{projectId}")]
-        public IActionResult JoinToProject(int projectId)
+        [HttpPost]
+        public IActionResult JoinToProject(RequestJoinViewModel model)
         {
             try
             {
+                _ = model;
                 var userId = int.Parse(userManager.GetUserId(this.User));
-                var project = projectService.JoinToProject(projectId, userId);
+                projectService.JoinToProject(model.ProjectId, userId, model.Message);
 
-                return Redirect($"/Project/{project.Id}");
+
+                return RedirectToAction("Index", "Profile");
                 //return RedirectToRoute("[controller]", new { id = project.Id });
             }
             catch (Exception)
@@ -160,6 +162,13 @@ namespace DevTeamUp.Controllers
                     Value = s.Id.ToString()
                 }).ToList();
             return availableTechnologies;
+        }
+
+        public IActionResult Leave(int projectId)
+        {
+            var userId = int.Parse(userManager.GetUserId(this.User));
+            projectService.LeaveProject(userId, projectId);
+            return RedirectToAction("List");
         }
     }
 }

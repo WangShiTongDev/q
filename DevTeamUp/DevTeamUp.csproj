@@ -39,9 +39,4 @@
     <None Include="Views\Profile\ProfileInit.cshtml" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Extansions\" />
-    <Folder Include="Extensions\" />
-  </ItemGroup>
-
 </Project>

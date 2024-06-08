@@ -32,5 +32,7 @@ namespace DevTeamUp.DAL.EF.Entities
         [InverseProperty(nameof(Project.Owner))]
         public virtual IList<Project> ProjectsOwner { get; set; }
 
+        [InverseProperty(nameof(ProjectApplication.Author))]
+        public virtual IList<ProjectApplication> ProjectApplications { get; set; }
     }
 }

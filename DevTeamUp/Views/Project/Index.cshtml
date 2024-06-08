@@ -1,25 +1,20 @@
 ﻿@model ProjectPageViewModel
 
-<div class="container bg-light p-3 px-5">
+<div class="container white-bg p-3 px-5">
     <div class="row">
         <div class="col ">
             <div class="d-flex justify-content-end ">
-                @if (!Model.IsMember)
-                {
-                    <a href="/Project/join/@Model.Id" class="btn btn-success me-2" >join</a>
-                    
-                }
+               
             
                 <div class="btn-group ">
                     <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        Action
+                        Дії
                     </button>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="#">Action</a></li>
                         @if (Model.IsOwner)
                         {
                         <li><a class="dropdown-item" href="#">Редагувати проект</a></li>
-                        <li><a class="dropdown-item" href="#">Бажаючі</a></li>
                             
                         }
                         <li><hr class="dropdown-divider"></li>
@@ -29,7 +24,7 @@
                         }
                         @if (Model.IsMember)
                         {
-                            <li><a class="dropdown-item text-danger" href="#">Leave</a></li>
+                            <li><a class="dropdown-item text-danger" href="/Project/Leave?projectId=@Model.Id">Leave</a></li>
                         }
 
                     </ul>
@@ -41,12 +36,10 @@
     </div>
     <div class="row">
         <div class="col">
-            <span>status</span>
+            <span>Учасників: @Model.Members.Count</span>
             <div>
                 <h1 class="fw-bold">@Model.Name</h1>
                
-
-
             </div>
         </div>
         <div class="col d-flex justify-content-end ">
@@ -82,7 +75,7 @@
             <div class="members">
                 @foreach (var member in Model.Members)
                 {
-                    <a href="/Profile/@member.Id" class="text-decoration-none text-black">
+                    <a href="/Profile?uId=@member.Id" class="text-decoration-none text-black">
 
                         <div class="profile-list-item card mb-4 box-shadow position-relative ">
                             <div class="card-body">
@@ -100,8 +93,7 @@
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center">
 
-                                    <small class="status-project">find team</small>
-                                    <small class="members-counter">Rating: 4/5</small>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -118,12 +110,13 @@
             <div class="col">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Join to project</h3>
+                        <h3 class="card-title">Запит на вступ</h3>
                     </div>
                     <div class="card-body">
-                        <form>
-                            <textarea class="form-control"></textarea>
-                            <input class="btn btn-primary mt-2 w-100" type="submit" value="join" />
+                        <form asp-action="JoinToProject" asp-controller="Project" method="post">
+                            <textarea class="form-control" name="message"></textarea>
+                            <input class="btn btn-primary mt-2 w-100" type="submit" value="Надіслати запит" />
+                            <input type="hidden" value="@Model.Id" name="ProjectId"  />
                         </form>
                     </div>
                 </div>

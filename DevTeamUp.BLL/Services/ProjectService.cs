@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure.Core;
 using DevTeamUp.BLL.DTOs;
 using DevTeamUp.BLL.Filters;
 using DevTeamUp.DAL.EF;
@@ -119,7 +120,7 @@ namespace DevTeamUp.BLL.Services
             };
         }
 
-        public ProjectDTO JoinToProject(int projectId, int userId)
+        public void JoinToProject(int projectId, int userId, string message)
         {
             var project = _dataContext.Projects.FirstOrDefault(p => p.Id == projectId);
             if (project == null)
@@ -129,11 +130,41 @@ namespace DevTeamUp.BLL.Services
 
             if (user == null) throw new AggregateException("Невідомий користувач");
             if (project.Members.Contains(user)) throw new ArgumentException("Ви вже в цьому проекті");
-            
 
-            project.Members.Add(user);
+
+            ProjectApplication projectApplication = new ProjectApplication()
+            {
+                AuthorId = userId,
+                Message = message,
+                ProjectId = projectId,
+            };
+            _dataContext.ProjectApplications.Add(projectApplication);
+
             _dataContext.SaveChanges();
-            return _mapper.Map<ProjectDTO>(project);
+        }
+
+        public IList<ProjectApplication> MembershipApplications(int userId)
+        {
+            var user = _dataContext.Users.FirstOrDefault(u => u.Id == userId);
+
+            return _dataContext.ProjectApplications.Where(r => user.ProjectsOwner.Select(p => p.Id).Contains(r.ProjectId)).Where(r => r.Status == ProjectApplicationStatus.pending).ToList();
+        }
+
+        public void JoinResult(int requestId , bool status)
+        {
+            var request = _dataContext.ProjectApplications.First(j => j.Id == requestId);
+            if(status == true)
+            {
+                request.Status = ProjectApplicationStatus.accepted;
+                var user = _dataContext.Users.First(u => u.Id == request.AuthorId);
+                _dataContext.Projects.First(p => p.Id == request.ProjectId).Members.Add(user);
+            }
+            else
+            {
+                request.Status = ProjectApplicationStatus.rejected;
+            }
+
+            _dataContext.SaveChanges();
         }
 
         public IEnumerable<ProjectDTO> GetProjectByUser(int userId)
@@ -163,6 +194,23 @@ namespace DevTeamUp.BLL.Services
             var dto = _mapper.Map<ProjectPageDTO>(project);
 
             return dto; 
+        }
+
+        public void LeaveProject(int userId, int projectId)
+        {
+            var project = _dataContext.Projects.FirstOrDefault(p => p.Id == projectId);
+            if (project == null)
+                throw new ArgumentException("Такого проекту не існує");
+
+            var user = _dataContext.Users.FirstOrDefault(u => u.Id == userId);
+
+            if (user == null) throw new AggregateException("Невідомий користувач");
+
+            if(user.Id != project.OwnerId)
+            {
+                project.Members.Remove(user);
+                _dataContext.SaveChanges();
+            }
         }
     }
 }

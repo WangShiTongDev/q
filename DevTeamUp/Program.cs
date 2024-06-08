@@ -16,26 +16,6 @@ using Microsoft.EntityFrameworkCore;
 namespace DevTeamUp
 {
 
-    /*
-     * Идеи:
-     * Посмотреть как можно реализовать планирование через календарь 
-     * 
-     * Думаю будет верно добавить сущность UserProfile для отображения профиля юзера
-     */
-
-
-    /* Разобрать как работает:
-     * 
-     * EF: при проектировании моделей, есть много проблем, начиная с тем что EF не понимает как 
-     * сопоставлять нав. свойства и заканчивая тем, что код который он генерирует в миграциях 
-     * не может создать БД, так как там цикл. зависимости.
-     * Я в конфликтных местах поставил NoAction, но это нужно рассмотреть и поменять в зависимости от бизнес логики
-     * 
-     * 
-     * 
-     * 
-     */
-
     
     public class Program
     {
@@ -43,7 +23,7 @@ namespace DevTeamUp
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+           
             builder.Services.AddControllersWithViews( config =>
             {
                 var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
@@ -96,7 +76,7 @@ namespace DevTeamUp
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+              
                 app.UseHsts();
             }
 
@@ -110,7 +90,7 @@ namespace DevTeamUp
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Profile}/{action=Index}/{id?}");
 
             app.Run();
         }

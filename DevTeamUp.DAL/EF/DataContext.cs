@@ -21,7 +21,6 @@ namespace DevTeamUp.DAL.EF
         public DbSet<Skill> Skills { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Project> Projects { get; set; }
-        public DbSet<ProjectChat> ProjectChats { get; set; }
-        public DbSet<Message> Messages { get; set; }
+        public DbSet<ProjectApplication> ProjectApplications { get; set; } 
     }
 }

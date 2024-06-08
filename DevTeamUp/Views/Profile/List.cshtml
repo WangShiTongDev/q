@@ -1,15 +1,15 @@
 ﻿@using DevTeamUp.BLL.DTOs;
 @model IList<ProfileListItemDTO>
 
-<div class="container bg-light p-5">
+<div class="container white-bg p-5">
     <div class="row mb-3">
         <div class="col">
             <h1>Користувачі</h1>
-            <form >
+            <form asp-action="List" asp-controller="Profile">
                 <div class="input-group">
 
-                <input class="form-control" type="text" value="" />
-                <input class="btn btn-success" type="submit" value="find" />
+                    <input class="form-control" type="text" value="" name="query" />
+                    <input class="btn btn-success" type="submit" value="find" />
                 </div>
             </form>
         </div>
@@ -23,7 +23,7 @@
                     <div class="card-body">
                         <a class="card-title text-decoration-none link-unstyled text-black fw-bold  "
                             style="font-size: 18pt"
-                           href="/Profile/@item.Id">@item.FirstName @item.LastName</a>
+                           href="/Profile?uId=@item.Id">@item.FirstName @item.LastName</a>
                         <div>
                             <ul class="project-skills ps-0 mt-1">
                                 @foreach (var skill in item.Skills)

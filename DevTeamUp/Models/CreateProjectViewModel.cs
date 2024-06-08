@@ -11,13 +11,19 @@ namespace DevTeamUp.Models
 {
     public class CreateProjectViewModel
     {
+        [Required(ErrorMessage = "назва обов'язкова")]
         public string Name { get; set; }
+
+        [Required(ErrorMessage = "опис обов'язковий")]
         public string Description { get; set; }
 
+        [Required(ErrorMessage = "короткий опис обов'язковий")]
         public string shortDescription { get; set; }
 
-        public IList<SelectListItem> Skills { get; set; } = new List<SelectListItem>();
-        
+        public IList<SelectListItem>? Skills { get; set; } = new List<SelectListItem>();
+
+        [Required(ErrorMessage = "технології обов'язкові")]
+        [MaxLength(8, ErrorMessage = "забагато")]
         public IList<int> SelectedSkillsIds { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿@using DevTeamUp.BLL.DTOs;
+@using DevTeamUp.DAL.EF.Entities;
 
 
 @model ProfilePageDTO
@@ -27,12 +28,17 @@
         </div>*@
         <div class="col">
             <h1> @Model.FirstName @Model.LastName</h1>
+            
             <p>
-                Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
+                @Model.Bio
             </p>
+           
             <div class="d-flex justify-content-between">
-                <a href="#">GitHub</a>
-                <a asp-action="ProfileInit" asp-controller="Profile">Edit</a>
+                <a href="@Model.GitHubLink">GitHub</a>
+                @if(Model.IsProfileOwner){
+
+                    <a asp-action="ProfileInit" asp-controller="Profile">Редагувати профіль</a>
+                }
             </div>
         </div>
     </div>
@@ -44,7 +50,7 @@
                 {
                     <li class="skill-item">@skill.Name</li>
                 }
-
+               
             </ul>
         </div>
     </div>
@@ -54,7 +60,6 @@
             <div class="about">
                 <p>
                     @Model.About
-                    Sapien elit in malesuada semper mi, id sollicitudin urna fermentum.
                 </p>
             </div>
 
@@ -65,8 +70,8 @@
         <div class="col">
             <div>
                 <div class="mb-2 d-flex justify-content-between pb-1 border-bottom border-3">
-                    <h4 class="">Projects</h4>
-                    <a class="btn btn-success " asp-action="CreateProject" asp-controller="Project">Create project</a>
+                    <h4 class="">Проекти</h4>
+                    <a class="btn btn-success " asp-action="CreateProject" asp-controller="Project">Створити проект</a>
                 </div>
                 <div class="profile-projects">
                     @foreach (var project in Model.Projects)
@@ -82,25 +87,21 @@
                                         {
                                             <li class="project-skill-item">@skill.Name</li>
                                         }
-                                        @*@for (int j = 0; j < 5; j++)
-                                        {
-                                            <li class="project-skill-item">Skill name</li>
-                                        }*@
+                                       
                                     </ul>
                                 </div>
                                 <div class="card-subtitle">
-                                    Sapien elit in malesuada semper mi, id sollicitudin urna fermentum.
+                                   @project.ShortDescription
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center">
 
-                                    <small class="status-project">find team</small>
-                                    <small class="members-counter">1/4</small>
+                                   
                                 </div>
                             </div>
                         </div>
                         </a>
                     }
-                    @for (int i = 0; i < 0; i++)
+                   @* @for (int i = 0; i < 0; i++)
                     {
                         <div class="project-list-item card mb-4 box-shadow position-relative ">
 
@@ -124,15 +125,10 @@
                                 </div>
                             </div>
                         </div>
-                    }
-                    @for (int i = 0; i < 0; i++)
+                    }*@
+                   @* @for (int i = 0; i < 0; i++)
                     {
                         
-                        @*<div class="project card">
-                            <div class="catd-body">
-                                
-                            </div>
-                        </div>*@
 
                         <div class="card mb-4 box-shadow position-relative ">
                             <img class="card-img-top" src="https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22348%22%20height%3D%22225%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20348%20225%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_18ebc89e27d%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A17pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_18ebc89e27d%22%3E%3Crect%20width%3D%22348%22%20height%3D%22225%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22116.71283340454102%22%20y%3D%22120.13639469146729%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">
@@ -148,12 +144,9 @@
                                     <small class="text-muted">9 mins</small>
                                 </div>
                             </div>
-                            @*<div class="card-description">
-                                <p>Опис карточки...</p>
-
-                            </div>*@
+                         
                         </div>
-                    }
+                    }*@
                 </div>
             </div>
         </div>
@@ -164,36 +157,67 @@
 
             <div>
                 
-                <p>reviws</p>
+                <h4 class="border-bottom border-3 pb-2">Відгуки</h4>
                 <div class="container">
-                    @for (int i = 0; i < 0; i++)
+                    @foreach(var item in Model.Reviews)
                     {
                     <div class="row mb-4 pb-2 border-bottom">
                         <div class="col-9">
-                            <div class="review-header d-flex pb-1">
-                                <div class="profile-image pe-3 ">
-                                    <img height="50" src="https://e7.pngegg.com/pngimages/312/283/png-clipart-man-s-face-avatar-computer-icons-user-profile-business-user-avatar-blue-face-thumbnail.png" alt="" />
-                                </div>
-                                <div>
-                                    <span>username</span>
-                                </div>
-                            </div>
+                            
                             <div class="review-details">
-                                <div class="review-rating">
-                                    * * *
-                                </div>
+                                
                                 <div class="review-description ">
-                                    Sapien elit in malesuada semper mi, id sollicitudin urna fermentum.
+                                    @item.Description
                                 </div>
                             </div>
                         </div>
                         <div class="col-3 border-start ">
-                            dsf
+                            @item.CreatedAt.ToString()
                         </div>
                     </div>
                         
                     }
                 </div>
+            </div>
+            <div>
+                @if (Model.IsProfileOwner)
+                {
+                    <div class="mb-2 d-flex justify-content-between pb-1 border-bottom border-3">
+                        <h4>Заявки на вступ</h4>
+
+                    </div>
+                    
+                    @foreach (var item in (ViewBag.MembershipApplications as IList<ProjectApplication>))
+                    {
+                    
+                    <div class="d-flex justify-content-between">
+                        <div class="">
+
+                            <a href="" class="me-1">Проект: @item.Project.Name</a>
+                            <a href="">Користувач: @item.Author.FirstName @item.Author.LastName</a>
+                        </div>
+                        <div class="btn-group">
+                                <a href="Profile/JoinResult?reqId=@item.Id&status=true" class="btn btn-success">Прийняти</a>
+                            <a href="" class="btn btn-danger">Відхилити</a>
+                        </div>
+                    </div>
+                    }
+                }
+                @if (!Model.IsProfileOwner)
+                {
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Коментар</h3>
+                        </div>
+                        <div class="card-body">
+                            <form asp-action="CreateReview" asp-controller="Profile" method="post">
+                                <textarea class="form-control" name="Description"></textarea>
+                                <input type="hidden" value="@Model.Id" name="ProfileId" />
+                                <input class="btn btn-primary mt-2 w-100" type="submit" value="Надіслати" />
+                            </form>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </div>

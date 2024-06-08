@@ -1,11 +1,15 @@
 ﻿using AutoMapper;
 using DevTeamUp.BLL.DTOs;
+using DevTeamUp.BLL.Filters;
 using DevTeamUp.BLL.Services;
+using DevTeamUp.DAL.EF;
 using DevTeamUp.DAL.EF.Entities;
 using DevTeamUp.Models;
+using DevTeamUp.Models.Profile;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace DevTeamUp.Controllers
@@ -17,7 +21,7 @@ namespace DevTeamUp.Controllers
         private readonly UserService userService;
         private readonly UserManager<User> userManager;
         private readonly IMapper mapper;
-
+        private readonly DataContext dataContext;
         //private UserDto _currentUser;
         private UserDto? currentUser
         {
@@ -26,18 +30,35 @@ namespace DevTeamUp.Controllers
                 return userService.GetUser(int.Parse(userManager.GetUserId(User)));
             }
         }
-        public ProfileController(ProjectService projectService, UserManager<User> userManager, IMapper mapper, UserService userService, SkillService skillService)
+        public ProfileController(ProjectService projectService, UserManager<User> userManager, IMapper mapper, UserService userService, SkillService skillService, DataContext dataContext)
         {
             this.projectService = projectService;
             this.userManager = userManager;
             this.mapper = mapper;
             this.userService = userService;
             this.skillService = skillService;
+            this.dataContext = dataContext;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? uId)
         {
-            var userId = int.Parse(userManager.GetUserId(User));
+            if(uId == null)
+            {
+                var userId = int.Parse(userManager.GetUserId(User));
+                var userProfile = userService.Profile(userId);
+                userProfile.IsProfileOwner = true;
+                
+                ViewBag.MembershipApplications = projectService.MembershipApplications(userId); 
+
+                return View(userProfile);
+            }
+            else
+            {
+                var userProfile = userService.Profile(uId.Value);
+                userProfile.Id = uId.Value;
+                return View(userProfile);
+            }
+
             //var userDto = userService.GetUser(userId);
 
 
@@ -50,21 +71,18 @@ namespace DevTeamUp.Controllers
             //profileModel.AvailableSkills = profileModel.toSelectListItem(availableSkills);
 
 
-            var userProfile = userService.Profile(userId);
 
-            _ = userProfile;
-            
-            return View(userProfile);
+         
         }
 
-        [HttpGet("[controller]/{id}", Order = int.MaxValue)]
-        public IActionResult UserProfile(int id)
-        {
-            if(currentUser.Id == id)
-                return RedirectToAction("Index");
-            // мб делать проверку на собственную страницу 
-            return View();
-        }
+        //[HttpGet("[controller]/{id}", Order = int.MaxValue)]
+        //public IActionResult UserProfile(int id)
+        //{
+        //    if(currentUser.Id == id)
+        //        return RedirectToAction("Index");
+        //    // мб делать проверку на собственную страницу 
+        //    return View();
+        //}
 
         public IActionResult ProfileInit()
         {
@@ -86,20 +104,56 @@ namespace DevTeamUp.Controllers
         public IActionResult ProfileInit(ProfileInitVM model)
         {
             _ = model;
-            model.AvailableSkills = skillService.GetSkills().Select(s =>
-                     new SelectListItem(s.Name, s.Id.ToString()))
-                 .ToList();
+            if(!ModelState.IsValid)
+            {
+                var errorMessages = ModelState.Values.SelectMany(v => v.Errors)
+                                            .Select(e => e.ErrorMessage)
+                                            .ToList();
+                model.AvailableSkills = skillService.GetSkills().Select(s =>
+                         new SelectListItem(s.Name, s.Id.ToString()))
+                     .ToList();
+                return View(model);
+            }
+
             var dto = mapper.Map<ProfileDTO>(model);
             userService.ProfileInit(dto, currentUser.Id);
-            return View(model);
+
+            return RedirectToAction("Index");
 
         }
 
-        public IActionResult List()
+        public IActionResult List(ProfileFilter? filter)
         {
-            var profiles = userService.GetProfiles();
+            _ = filter;
+            var profiles = userService.GetProfiles(filter);
             _ = profiles;
             return View(profiles);
+        }
+
+        public IActionResult JoinResult(int reqId, bool status)
+        {
+          
+            projectService.JoinResult(reqId, status);
+
+            return Redirect("Index");
+        }
+
+        [HttpPost]
+        public IActionResult CreateReview(ReviewViewModel model)
+        {
+
+            Review newReview = new Review()
+            {
+                AuthorId = currentUser.Id,
+                Description = model.Description,
+                RecipientId = model.ProfileId,
+                CreatedAt = DateTime.Now,
+            };
+
+            dataContext.Reviews.Add(newReview);
+            dataContext.SaveChanges();
+
+            return Redirect("Index");
         }
     }
 }

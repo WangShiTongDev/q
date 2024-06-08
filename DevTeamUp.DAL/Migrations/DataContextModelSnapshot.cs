@@ -25,36 +25,6 @@ namespace DevTeamUp.DAL.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("DevTeamUp.DAL.EF.Entities.Message", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ChatId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("SenderId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ChatId");
-
-                    b.HasIndex("SenderId");
-
-                    b.ToTable("Messages");
-                });
-
             modelBuilder.Entity("DevTeamUp.DAL.EF.Entities.Project", b =>
                 {
                     b.Property<int>("Id")
@@ -88,7 +58,7 @@ namespace DevTeamUp.DAL.Migrations
                     b.ToTable("Projects");
                 });
 
-            modelBuilder.Entity("DevTeamUp.DAL.EF.Entities.ProjectChat", b =>
+            modelBuilder.Entity("DevTeamUp.DAL.EF.Entities.ProjectApplication", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -96,14 +66,26 @@ namespace DevTeamUp.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AuthorId");
+
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("ProjectChats");
+                    b.ToTable("ProjectApplications");
                 });
 
             modelBuilder.Entity("DevTeamUp.DAL.EF.Entities.Review", b =>
@@ -124,20 +106,12 @@ namespace DevTeamUp.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Evaluation")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProjectId")
-                        .HasColumnType("int");
-
                     b.Property<int>("RecipientId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
-
-                    b.HasIndex("ProjectId");
 
                     b.HasIndex("RecipientId");
 
@@ -425,25 +399,6 @@ namespace DevTeamUp.DAL.Migrations
                     b.ToTable("SkillUser");
                 });
 
-            modelBuilder.Entity("DevTeamUp.DAL.EF.Entities.Message", b =>
-                {
-                    b.HasOne("DevTeamUp.DAL.EF.Entities.ProjectChat", "Chat")
-                        .WithMany("Messages")
-                        .HasForeignKey("ChatId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DevTeamUp.DAL.EF.Entities.User", "Sender")
-                        .WithMany()
-                        .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Chat");
-
-                    b.Navigation("Sender");
-                });
-
             modelBuilder.Entity("DevTeamUp.DAL.EF.Entities.Project", b =>
                 {
                     b.HasOne("DevTeamUp.DAL.EF.Entities.User", "Owner")
@@ -455,13 +410,21 @@ namespace DevTeamUp.DAL.Migrations
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("DevTeamUp.DAL.EF.Entities.ProjectChat", b =>
+            modelBuilder.Entity("DevTeamUp.DAL.EF.Entities.ProjectApplication", b =>
                 {
+                    b.HasOne("DevTeamUp.DAL.EF.Entities.User", "Author")
+                        .WithMany("ProjectApplications")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("DevTeamUp.DAL.EF.Entities.Project", "Project")
-                        .WithMany()
+                        .WithMany("ProjectApplications")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Author");
 
                     b.Navigation("Project");
                 });
@@ -474,12 +437,6 @@ namespace DevTeamUp.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DevTeamUp.DAL.EF.Entities.Project", "Project")
-                        .WithMany()
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("DevTeamUp.DAL.EF.Entities.User", "Recipient")
                         .WithMany("CommentsForUser")
                         .HasForeignKey("RecipientId")
@@ -487,8 +444,6 @@ namespace DevTeamUp.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Author");
-
-                    b.Navigation("Project");
 
                     b.Navigation("Recipient");
                 });
@@ -589,14 +544,16 @@ namespace DevTeamUp.DAL.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DevTeamUp.DAL.EF.Entities.ProjectChat", b =>
+            modelBuilder.Entity("DevTeamUp.DAL.EF.Entities.Project", b =>
                 {
-                    b.Navigation("Messages");
+                    b.Navigation("ProjectApplications");
                 });
 
             modelBuilder.Entity("DevTeamUp.DAL.EF.Entities.User", b =>
                 {
                     b.Navigation("CommentsForUser");
+
+                    b.Navigation("ProjectApplications");
 
                     b.Navigation("ProjectsOwner");
 

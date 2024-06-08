@@ -30,5 +30,8 @@ namespace DevTeamUp.DAL.EF.Entities
         public virtual IList<User> Members { get; set; }
 
         public virtual IList<Skill> Stack { get; set; }
+
+        [InverseProperty(nameof(ProjectApplication.Project))]
+        public virtual IList<ProjectApplication> ProjectApplications { get; set; }
     }
 }

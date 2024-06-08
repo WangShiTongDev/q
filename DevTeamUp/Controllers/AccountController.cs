@@ -38,7 +38,7 @@ namespace DevTeamUp.Controllers
             var signInResult = signInManager.PasswordSignInAsync(model.Email, model.Password, true, false).Result;
             if (signInResult.Succeeded)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("ProfileInit", "Profile");
             }
 
             ViewBag.Msg = "Невірний логін або пароль";

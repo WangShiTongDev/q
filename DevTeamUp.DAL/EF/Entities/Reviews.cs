@@ -10,7 +10,7 @@ namespace DevTeamUp.DAL.EF.Entities
     // Отзывы о пользователе 
     public class Review : EntityBase
     {
-        public int Evaluation { get; set; }
+        
         public required string Description { get; set; }
         public DateTime CreatedAt { get; set; }
 
@@ -22,8 +22,7 @@ namespace DevTeamUp.DAL.EF.Entities
         [InverseProperty(nameof(User.CommentsForUser))]
         public virtual User Recipient { get; set; }
 
-        public int ProjectId { get; set; }
-        public virtual Project Project { get; set; }
+        
 
     }
 }
