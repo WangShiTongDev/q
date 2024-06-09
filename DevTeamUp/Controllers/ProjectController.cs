@@ -26,7 +26,8 @@ namespace DevTeamUp.Controllers
             this.skillService = skillService;
         }
 
-        [HttpGet("[controller]/{id}", Order = int.MaxValue)]
+
+        [HttpGet("[controller]/{id}", Order = int.MaxValue, Name = "def")]
         public IActionResult Index(int id)
         {
             try
@@ -60,40 +61,15 @@ namespace DevTeamUp.Controllers
 
         public IActionResult Test()
         {
-            return RedirectToRoute("[controller]", new { id = 11 });
+            return RedirectToRoute("def", new { Id = 11});
         }
 
-        public IActionResult List()
+        public IActionResult List(ProjectsFilter? filter)
         {
-            //_ = filter;
-            //ProjectsListDTO projectsListDTO = projectService.GetPage(page, filter);
-            //ProjectsListViewModel model = new()
-            //{
-            //    Count = projectsListDTO.Projects.Count,
-            //    TotalCount = projectsListDTO.TotalCount,
-            //    TotalPages = projectsListDTO.TotalPages,
-            //    Projects = projectsListDTO.Projects.Select(dto => new ProjectViewModel
-            //    {
-            //        Id = dto.Id,
-            //        Name = dto.Name,
-            //        Description = dto.Description,
-            //        OwnerId = dto.OwnerId,
-            //        Stack = dto.Stack.Select(skill => new SkillViewModel { 
-            //            Id = skill.Id,
-            //            Name = skill.Name,
-            //        })
-            //        .ToList()
+            _ = filter;
+            var projects = projectService.GetAllProjects(filter);
 
-            //    }).ToList()
-            //};
-
-            //ViewBag.AvailableTechnologies = listItemsAvailableTechnologies();
-            //return View(model);
-
-
-            var projects = projectService.GetAllProjects();
-
-            
+            ViewBag.Technologies = listItemsAvailableTechnologies();
             return View(projects);
         }
 
@@ -124,7 +100,7 @@ namespace DevTeamUp.Controllers
                 _ = dto;
                 var newProject = projectService.CreateProject(dto, userId);
                 _ = newProject;
-                return RedirectToAction("Index");
+                return RedirectToRoute("def", new { Id = newProject.Id });
             }
 
             return View(model);

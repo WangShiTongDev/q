@@ -42,7 +42,7 @@ namespace DevTeamUp.Controllers
 
         public IActionResult Index(int? uId)
         {
-            if(uId == null)
+            if(uId == null || uId == currentUser.Id)
             {
                 var userId = int.Parse(userManager.GetUserId(User));
                 var userProfile = userService.Profile(userId);
@@ -56,6 +56,9 @@ namespace DevTeamUp.Controllers
             {
                 var userProfile = userService.Profile(uId.Value);
                 userProfile.Id = uId.Value;
+                var userEntity = dataContext.Users.First(u => u.Id == int.Parse(userManager.GetUserId(User)));
+                ViewBag.isCollaborator = userEntity.ProjectsMember.Any(p => p.Members.Any(m => m.Id == userProfile.Id));
+                
                 return View(userProfile);
             }
 
@@ -153,7 +156,7 @@ namespace DevTeamUp.Controllers
             dataContext.Reviews.Add(newReview);
             dataContext.SaveChanges();
 
-            return Redirect("Index");
+            return Redirect($"Index?uId={newReview.RecipientId}");
         }
     }
 }

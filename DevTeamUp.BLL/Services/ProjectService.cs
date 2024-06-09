@@ -50,16 +50,31 @@ namespace DevTeamUp.BLL.Services
             return projectDTO;
         }
 
-        public IEnumerable<ProjectDTO> GetAllProjects()
+        public IEnumerable<ProjectDTO> GetAllProjects(ProjectsFilter? filter)
         {
-            //return _dataContext.Projects.Select(p => new ProjectDTO {
-            //    Id = p.Id,
-            //    Name = p.Name,
-            //    Description = p.Description,
-            //    OwnerId = p.OwnerId,
-            //}).ToList();    
+            var query = _dataContext.Projects.AsQueryable();
+            if (!String.IsNullOrWhiteSpace(filter?.Keyword))
+            {
+                 query = query.Where( p => p.Name.Contains(filter.Keyword) || 
+                    p.Description.Contains(filter.Keyword) ||
+                    p.shortDescription.Contains(filter.Keyword)
+                    );
+            }
+            
+            if (filter?.Technologies?.Any() == true)
+            {
+                query = query.Where(p => p.Stack.Any(t => filter.Technologies.Contains(t.Id)));   
+            }
 
-            return _mapper.Map<IList<ProjectDTO>>(_dataContext.Projects.Include(p => p.Stack).ToList());
+            
+                //return _dataContext.Projects.Select(p => new ProjectDTO {
+                //    Id = p.Id,
+                //    Name = p.Name,
+                //    Description = p.Description,
+                //    OwnerId = p.OwnerId,
+                //}).ToList();    
+
+                return _mapper.Map<IList<ProjectDTO>>(query.ToList());
 
         }
         public IEnumerable<ProjectDTO> OwnersProjects(int userId)
@@ -89,8 +104,8 @@ namespace DevTeamUp.BLL.Services
                 queryExpression = queryExpression.Where(p => p.Name.Contains(filter.Keyword));
 
             // Выбираем все проекты, если у них есть хотя бы 1 технология из фильтра
-            if (filter?.TechnologyIds != null && filter.TechnologyIds.Any())
-                queryExpression = queryExpression.Where(p => p.Stack.Any(t => filter.TechnologyIds.Contains(t.Id)));
+            if (filter?.Technologies != null && filter.Technologies.Any())
+                queryExpression = queryExpression.Where(p => p.Stack.Any(t => filter.Technologies.Contains(t.Id)));
 
             // Хахахаха, у меня просто в фильтры не заполнялся Keyword
             //if (!String.IsNullOrWhiteSpace(filter?.Keyword))

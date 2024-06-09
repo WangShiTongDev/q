@@ -5,38 +5,21 @@
     <div class="row mb-3">
         <div class="col">
             <h1>Проекти</h1>
-            <form>
+            <form id="projectFIlerForm">
                 <div class="input-group">
 
-                    <input class="form-control" type="text" value="" />
+                    <input class="form-control" type="text" value="" name="Keyword" />
                     <input class="btn btn-success" type="submit" value="find" />
                 </div>
                 <div class="mb-3 p-3 border border-3 rounded-3 ">
                     <select class="form-control selectpicker source" data-live-search="true">
                         <option value="">Технології</option>
 
-                        <option>C#</option>
-                        <option>JavaScript</option>
-                        <option>Python</option>
-                        <option>Java</option>
-                        <option>C++</option>
-                        <option>HTML</option>
-                        <option>CSS</option>
-                        <option>SQL</option>
-                        <option>Ruby</option>
-                        <option>PHP</option>
-                        <option>Swift</option>
-                        <option>TypeScript</option>
-                        <option>Go</option>
-                        <option>Kotlin</option>
-                        <option>Scala</option>
-                        <option>Perl</option>
-                        <option>Rust</option>
-                        <option>Objective-C</option>
-                        <option>VB.NET</option>
-                        <option>Assembly</option>
+                        @foreach (var item in ViewBag.Technologies as IList<SelectListItem>)
+                        {
+                            <option value="@item.Value">@item.Text</option>
+                        }
                        
-
                     </select>
                     <hr />
                     <div class="selected">
@@ -106,336 +89,24 @@
         }
 
 
-       @* <div class="col-lg-4 col-md-12">
-            <a href="#" class="text-decoration-none text-black">
-
-                <div class="project-list-item card mb-4 box-shadow position-relative ">
-
-                    <div class="card-body ">
-                        <h5 class="card-title">Project </h5>
-                        <div>
-                            <ul class="project-skills">
-                                
-                                    <li class="project-skill-item">Js</li>
-                                <li class="project-skill-item">c#</li>
-                                <li class="project-skill-item">sql</li>
-                                <li class="project-skill-item">html/css</li>
-                                
-                            </ul>
-                        </div>
-                        <div class="card-subtitle">
-                            Sapien elit in malesuada semper mi, id sollicitudin urna fermentum.
-                        </div>
-
-                        <div class="d-flex justify-content-between align-items-center">
-
-                            
-                            <small class="members-counter">Розробників: 1</small>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-lg-4 col-md-12">
-            <a href="#" class="text-decoration-none text-black">
-
-                <div class="project-list-item card mb-4 box-shadow position-relative ">
-
-                    <div class="card-body ">
-                        <h5 class="card-title">Project </h5>
-                        <div>
-                            <ul class="project-skills">
-
-                                <li class="project-skill-item">python</li>
-                                <li class="project-skill-item">Django</li>
-                                
-
-                            </ul>
-                        </div>
-                        <div class="card-subtitle">
-                            
-                            Elit in malesuada semper mi, id sollicitudin urna fermentum ut fusce.
-                        </div>
-
-                        <div class="d-flex justify-content-between align-items-center">
-
-
-                            <small class="members-counter">Розробників: 1</small>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-         <div class="col-lg-4 col-md-12">
-            <a href="#" class="text-decoration-none text-black">
-
-                <div class="project-list-item card mb-4 box-shadow position-relative ">
-
-                    <div class="card-body ">
-                        <h5 class="card-title">Project </h5>
-                        <div>
-                            <ul class="project-skills">
-                                
-                                    <li class="project-skill-item">java</li>
-                                <li class="project-skill-item">spring</li>
-                                <li class="project-skill-item">sql</li>
-                                <li class="project-skill-item">html/css</li>
-                                <li class="project-skill-item">js</li>
-                                
-                            </ul>
-                        </div>
-                        <div class="card-subtitle">
-                            Sapien elit in malesuada semper mi, id sollicitudin urna fermentum.
-                        </div>
-
-                        <div class="d-flex justify-content-between align-items-center">
-
-                            
-                            <small class="members-counter">Розробників: 1</small>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-         <div class="col-lg-4 col-md-12">
-            <a href="#" class="text-decoration-none text-black">
-
-                <div class="project-list-item card mb-4 box-shadow position-relative ">
-
-                    <div class="card-body ">
-                        <h5 class="card-title">Project </h5>
-                        <div>
-                            <ul class="project-skills">
-                                
-                                    <li class="project-skill-item">Js</li>
-                                <li class="project-skill-item">c#</li>
-                                <li class="project-skill-item">sql</li>
-                                <li class="project-skill-item">html/css</li>
-                                
-                            </ul>
-                        </div>
-                        <div class="card-subtitle">
-                            Sapien elit in malesuada semper mi, id sollicitudin urna fermentum.
-                        </div>
-
-                        <div class="d-flex justify-content-between align-items-center">
-
-                            
-                            <small class="members-counter">Розробників: 1</small>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-         <div class="col-lg-4 col-md-12">
-            <a href="#" class="text-decoration-none text-black">
-
-                <div class="project-list-item card mb-4 box-shadow position-relative ">
-
-                    <div class="card-body ">
-                        <h5 class="card-title">Project </h5>
-                        <div>
-                            <ul class="project-skills">
-                                
-                                    <li class="project-skill-item">Js</li>
-                                <li class="project-skill-item">c#</li>
-                                <li class="project-skill-item">sql</li>
-                                <li class="project-skill-item">html/css</li>
-                                
-                            </ul>
-                        </div>
-                        <div class="card-subtitle">
-                            Sapien elit in malesuada semper mi, id sollicitudin urna fermentum.
-                        </div>
-
-                        <div class="d-flex justify-content-between align-items-center">
-
-                            
-                            <small class="members-counter">Розробників: 1</small>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-         <div class="col-lg-4 col-md-12">
-            <a href="#" class="text-decoration-none text-black">
-
-                <div class="project-list-item card mb-4 box-shadow position-relative ">
-
-                    <div class="card-body ">
-                        <h5 class="card-title">Project </h5>
-                        <div>
-                            <ul class="project-skills">
-                                
-                                    <li class="project-skill-item">Js</li>
-                                <li class="project-skill-item">c#</li>
-                                <li class="project-skill-item">sql</li>
-                                <li class="project-skill-item">html/css</li>
-                                
-                            </ul>
-                        </div>
-                        <div class="card-subtitle">
-                            Sapien elit in malesuada semper mi, id sollicitudin urna fermentum.
-                        </div>
-
-                        <div class="d-flex justify-content-between align-items-center">
-
-                            
-                            <small class="members-counter">Розробників: 1</small>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-         <div class="col-lg-4 col-md-12">
-            <a href="#" class="text-decoration-none text-black">
-
-                <div class="project-list-item card mb-4 box-shadow position-relative ">
-
-                    <div class="card-body ">
-                        <h5 class="card-title">Project </h5>
-                        <div>
-                            <ul class="project-skills">
-                                
-                                    <li class="project-skill-item">Js</li>
-                                <li class="project-skill-item">c#</li>
-                                <li class="project-skill-item">sql</li>
-                                <li class="project-skill-item">html/css</li>
-                                
-                            </ul>
-                        </div>
-                        <div class="card-subtitle">
-                            Sapien elit in malesuada semper mi, id sollicitudin urna fermentum.
-                        </div>
-
-                        <div class="d-flex justify-content-between align-items-center">
-
-                            
-                            <small class="members-counter">Розробників: 1</small>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-         <div class="col-lg-4 col-md-12">
-            <a href="#" class="text-decoration-none text-black">
-
-                <div class="project-list-item card mb-4 box-shadow position-relative ">
-
-                    <div class="card-body ">
-                        <h5 class="card-title">Project </h5>
-                        <div>
-                            <ul class="project-skills">
-                                
-                                    <li class="project-skill-item">Js</li>
-                                <li class="project-skill-item">nodejs</li>
-                                
-                                <li class="project-skill-item">html/css</li>
-                                
-                            </ul>
-                        </div>
-                        <div class="card-subtitle">
-                            Sapien elit in malesuada semper mi, id sollicitudin urna fermentum.
-                        </div>
-
-                        <div class="d-flex justify-content-between align-items-center">
-
-                            
-                            <small class="members-counter">Розробників: 1</small>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-         <div class="col-lg-4 col-md-12">
-            <a href="#" class="text-decoration-none text-black">
-
-                <div class="project-list-item card mb-4 box-shadow position-relative ">
-
-                    <div class="card-body ">
-                        <h5 class="card-title">Project </h5>
-                        <div>
-                            <ul class="project-skills">
-                                
-                                    <li class="project-skill-item">Js</li>
-                                <li class="project-skill-item">c#</li>
-                                <li class="project-skill-item">sql</li>
-                                <li class="project-skill-item">html/css</li>
-                                
-                            </ul>
-                        </div>
-                        <div class="card-subtitle">
-                            Sapien elit in malesuada semper mi, id sollicitudin urna fermentum.
-                        </div>
-
-                        <div class="d-flex justify-content-between align-items-center">
-
-                            
-                            <small class="members-counter">Розробників: 1</small>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-         <div class="col-lg-4 col-md-12">
-            <a href="#" class="text-decoration-none text-black">
-
-                <div class="project-list-item card mb-4 box-shadow position-relative ">
-
-                    <div class="card-body ">
-                        <h5 class="card-title">Project </h5>
-                        <div>
-                            <ul class="project-skills">
-                                
-                                    <li class="project-skill-item">Js</li>
-                                <li class="project-skill-item">java</li>
-                                <li class="project-skill-item">sql</li>
-                                <li class="project-skill-item">html/css</li>
-                                <li class="project-skill-item">spring</li>
-                                
-                            </ul>
-                        </div>
-                        <div class="card-subtitle">
-                            Sapien elit in malesuada semper mi, id sollicitudin urna fermentum.
-                        </div>
-
-                        <div class="d-flex justify-content-between align-items-center">
-
-                            
-                            <small class="members-counter">Розробників: 1</small>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-lg-4 col-md-12">
-            <a href="#" class="text-decoration-none text-black">
-
-                <div class="project-list-item card mb-4 box-shadow position-relative ">
-
-                    <div class="card-body ">
-                        <h5 class="card-title">Project </h5>
-                        <div>
-                            <ul class="project-skills">
-
-                                <li class="project-skill-item">Js</li>
-                               
-                                <li class="project-skill-item">html/css</li>
-
-                            </ul>
-                        </div>
-                        <div class="card-subtitle">
-                            Sapien elit in malesuada semper mi, id sollicitudin urna fermentum.
-                        </div>
-
-                        <div class="d-flex justify-content-between align-items-center">
-
-
-                            <small class="members-counter">Розробників: 2</small>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>*@
+ 
     </div>
 </div>
+
+
+@section Scripts {
+
+
+    <script>
+
+        let source = document.querySelector('.source');
+        let selected = document.querySelector('.selected')
+        let hideInputs = document.querySelector('#hideInputs')
+
+        let form = document.querySelector('#projectFIlerForm');
+
+
+        let skillsSelect = new MySelect(hideInputs, source, selected, 'Technologies');
+
+    </script>
+}

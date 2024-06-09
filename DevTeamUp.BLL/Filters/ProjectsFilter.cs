@@ -9,7 +9,7 @@ namespace DevTeamUp.BLL.Filters
     public class ProjectsFilter
     {
         
-        public string Keyword { get; set; }
-        public List<int> TechnologyIds { get; set; }
+        public string? Keyword { get; set; }
+        public IList<int>? Technologies { get; set; }
     }
 }
