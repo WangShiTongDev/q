@@ -7,6 +7,7 @@ using DevTeamUp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Data;
 
 namespace DevTeamUp.Controllers
 {
@@ -73,14 +74,29 @@ namespace DevTeamUp.Controllers
             return View(projects);
         }
 
-        public IActionResult CreateProject()
+        public IActionResult CreateProject(int? projectId)
         {
+
             CreateProjectViewModel model = new()
             {
                 Skills = listItemsAvailableTechnologies()
             };
+
+            if(projectId == null)
+            {
+
+                return View(model);
+            }
+            else
+            {
+                var project = projectService.GetProject(projectId.Value);
+                model.Name = project.Name;
+                model.Description = project.Description;
+                model.shortDescription = project.ShortDescription;
+                model.Id = project.Id;
+                return View(model);
+            }
             
-            return View(model);
         }
 
         [HttpPost]
@@ -88,21 +104,36 @@ namespace DevTeamUp.Controllers
         {
             if(ModelState.IsValid)
             {
-                var userId = int.Parse(userManager.GetUserId(this.User));
-                //var projectDto = new CreatedProjectDTO
-                //{
-                //    Name = model.Name,
-                //    Description = model.Description,
-                //    SkillsIds = model.SelectedSkillsIds
-                //};
+                // проверка на владельца
+                if(model.Id != null)
+                {
+                    UpdateProjectDTO p = new()
+                    {
+                        Id = model.Id.Value,
+                        Name = model.Name,
+                        Description = model.Description,
+                        shortDescription = model.shortDescription,
+                        Stack = model.SelectedSkillsIds
 
-                var dto = mapper.Map<CreatedProjectDTO>(model);
-                _ = dto;
-                var newProject = projectService.CreateProject(dto, userId);
-                _ = newProject;
-                return RedirectToRoute("def", new { Id = newProject.Id });
+                    };
+                    
+                    projectService.Update(p);
+                    return RedirectToRoute("def", new { Id = p.Id });
+
+                }
+                else
+                {
+                    var userId = int.Parse(userManager.GetUserId(this.User));
+                    var dto = mapper.Map<CreatedProjectDTO>(model);
+                    _ = dto;
+                    var newProject = projectService.CreateProject(dto, userId);
+                    _ = newProject;
+                    return RedirectToRoute("def", new { Id = newProject.Id });
+                }
+
+
             }
-
+            model.Skills = listItemsAvailableTechnologies();
             return View(model);
         }
 

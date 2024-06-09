@@ -23,17 +23,17 @@
         <div class="col">
             <div class="card">
                 <div class="card-header">
-                    <h3>Створити проект</h3>
+                    <h3>Проект</h3>
                 </div>
                 <div class="card-body">
                     <form asp-action="CreateProject" asp-controller="Project" method="post">
                         <div class="mb-3">
                             @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                            <input name="name" class="form-control" type="text" value="" placeholder="Назва" readonly />
+                            <input name="name" class="form-control" type="text" value="@Model.Name" placeholder="Назва" required  />
                         </div>
                         <div class="mb-3">
                             @Html.ValidationMessageFor(model => model.shortDescription, "", new { @class = "text-danger" })
-                            <input name="shortDescription" class="form-control" type="text" value="" required placeholder="Короткий опис"  />
+                            <input name="shortDescription" class="form-control" type="text" value="@Model.shortDescription" required placeholder="Короткий опис"  />
                         </div>
                         
                         
@@ -55,10 +55,13 @@
                         </div>
                         <div class="mb-3">
                             @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                            <textarea name="Description" class="form-control " placeholder="Опис" required ></textarea>
+                            <textarea name="Description" class="form-control " placeholder="Опис" required>@Model.Description</textarea>
                         </div>
-                        
-                        <input class="w-100 btn btn-success" type="submit" value="Створити" />
+                        @if(Model.Id != null)
+                        {
+                            <input type="hidden" name="Id" value="@Model.Id"/>
+                        }
+                        <input class="w-100 btn btn-success" type="submit" value="Готово" />
                     </form>
                 </div>
             </div>

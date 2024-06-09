@@ -8,6 +8,7 @@ namespace DevTeamUp.BLL.Filters
 {
     public class ProfileFilter
     {
-        public string Query { get; set; }
+        public string? Query { get; set; }
+        public IList<int>? Skills { get; set; }
     }
 }

@@ -227,5 +227,18 @@ namespace DevTeamUp.BLL.Services
                 _dataContext.SaveChanges();
             }
         }
+
+        public void Update(UpdateProjectDTO project)
+        {
+            var p = _dataContext.Projects.FirstOrDefault(p => p.Id == project.Id);
+            if (p == null) return;
+
+            p.Name = project.Name;
+            p.Description = project.Description;
+            p.shortDescription = project.shortDescription;
+            p.Stack.Clear();
+            p.Stack = _dataContext.Skills.Where(s => project.Stack.Contains(s.Id)).ToList();
+            _dataContext.SaveChanges();
+        }
     }
 }

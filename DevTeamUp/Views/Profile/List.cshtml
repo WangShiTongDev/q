@@ -11,6 +11,22 @@
                     <input class="form-control" type="text" value="" name="query" />
                     <input class="btn btn-success" type="submit" value="find" />
                 </div>
+                <div class="mb-3 p-3 border border-3 rounded-3 ">
+                    <select class="form-control selectpicker source" data-live-search="true">
+                        <option value="">Технології</option>
+
+                        @foreach (var item in ViewBag.Skills as IList<SelectListItem>)
+                        {
+                            <option value="@item.Value">@item.Text</option>
+                        }
+
+                    </select>
+                    <hr />
+                    <div class="selected">
+                    </div>
+                    <div id="hideInputs">
+                    </div>
+                </div>
             </form>
         </div>
     </div>
@@ -46,3 +62,21 @@
         }
     </div>
 </div>
+
+
+@section Scripts {
+
+
+    <script>
+
+        let source = document.querySelector('.source');
+        let selected = document.querySelector('.selected')
+        let hideInputs = document.querySelector('#hideInputs')
+
+        let form = document.querySelector('#projectFIlerForm');
+
+
+        let skillsSelect = new MySelect(hideInputs, source, selected, 'Skills');
+
+    </script>
+}

@@ -11,6 +11,7 @@ namespace DevTeamUp.Models
 {
     public class CreateProjectViewModel
     {
+        public int? Id { get; set; }
         [Required(ErrorMessage = "назва обов'язкова")]
         public string Name { get; set; }
 

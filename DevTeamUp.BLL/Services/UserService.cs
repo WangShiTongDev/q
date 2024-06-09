@@ -148,6 +148,11 @@ namespace DevTeamUp.BLL.Services
                 );
             }
 
+            if(filter?.Skills?.Any() == true)
+            {
+                query = query.Where(u => u.Skills.Any(s => filter.Skills.Contains(s.Id)));
+            }
+
             var users = query.ToList();
 
             var profiles = _mapper.Map<IList<ProfileListItemDTO>>(users);

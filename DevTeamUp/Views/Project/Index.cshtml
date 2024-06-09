@@ -11,18 +11,18 @@
                         Дії
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
+                      
                         @if (Model.IsOwner)
                         {
-                        <li><a class="dropdown-item" href="#">Редагувати проект</a></li>
+                            <li><a class="dropdown-item" href="/Project/CreateProject?projectId=@Model.Id">Редагувати проект</a></li>
                             
                         }
                         <li><hr class="dropdown-divider"></li>
-                        @if (Model.IsOwner)
+                       @* @if (Model.IsOwner)
                         {
                             <li><a class="dropdown-item text-danger" href="#">Delete</a></li>
-                        }
-                        @if (Model.IsMember)
+                        }*@
+                        @if (Model.IsMember && !Model.IsOwner)
                         {
                             <li><a class="dropdown-item text-danger" href="/Project/Leave?projectId=@Model.Id">Leave</a></li>
                         }
@@ -35,6 +35,7 @@
         
     </div>
     <div class="row">
+        
         <div class="col">
             <span>Учасників: @Model.Members.Count</span>
             <div>
@@ -43,10 +44,10 @@
             </div>
         </div>
         <div class="col d-flex justify-content-end ">
-            <a href="/Profile/@Model.OwnerProfile.Id">Creator: @Model.OwnerProfile.FirstName @Model.OwnerProfile.LastName</a>
+            <a href="/Profile?uId=@Model.OwnerProfile.Id">Власник: @Model.OwnerProfile.FirstName @Model.OwnerProfile.LastName</a>
         </div>
     </div>
-    <hr />
+    <hr style="background-color: darkgrey; height: 4px" />
     <div class="row">
         <div class="col">
             <div class="stack">
@@ -69,8 +70,9 @@
     </div>
     <div class="row">
         <div class="col">
-            <hr class="my-4"/>
-            <h5>Members @Model.Members.Count </h5>
+            <hr class="my-4" style="background-color: darkgrey; height: 4px" />
+            
+            <h5>Учасників @Model.Members.Count </h5>
             
             <div class="members">
                 @foreach (var member in Model.Members)

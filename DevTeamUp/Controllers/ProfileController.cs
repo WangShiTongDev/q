@@ -106,7 +106,7 @@ namespace DevTeamUp.Controllers
         [HttpPost]
         public IActionResult ProfileInit(ProfileInitVM model)
         {
-            _ = model;
+   
             if(!ModelState.IsValid)
             {
                 var errorMessages = ModelState.Values.SelectMany(v => v.Errors)
@@ -128,8 +128,11 @@ namespace DevTeamUp.Controllers
         public IActionResult List(ProfileFilter? filter)
         {
             _ = filter;
+            ViewBag.Skills = skillService.GetSkills().Select(s =>
+                         new SelectListItem(s.Name, s.Id.ToString()))
+                     .ToList();
             var profiles = userService.GetProfiles(filter);
-            _ = profiles;
+            
             return View(profiles);
         }
 
